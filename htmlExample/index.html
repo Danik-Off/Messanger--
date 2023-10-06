@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>WhatsApp Messenger</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>NameChatService</h1>
+        </header>
+        <nav class="navigation">
+            <!-- Navigation buttons or links go here -->
+        </nav>
+        <div class="content">
+            <div class="dialogs">
+                <!-- Dialog list goes here -->
+                <div class="dialog">Dialog 1</div>
+                <div class="dialog">Dialog 2</div>
+                <div class="dialog">Dialog 3</div>
+                <!-- Add more dialogs here -->
+            </div>
+            <div class="chat-window">
+                <div class="chat-header">
+                    <h2>Chat with Contact 1</h2>
+                </div>
+                <div class="chat-messages">
+                    <div class="message received">
+                        <div class="message-content">
+                            <p>Contact 1: Hello! How are you doing?</p>
+                            <span class="timestamp">10:30 AM</span>
+                        </div>
+                    </div>
+                    <div class="message sent">
+                        <div class="message-content">
+                            <p>You: Hi! I'm doing well, thanks.</p>
+                            <span class="timestamp">10:35 AM</span>
+                        </div>
+                    </div>
+                    <!-- Add more chat messages here -->
+                </div>
+                <div class="attached-files">
+                    <!-- Display attached files here -->
+                    <div class="attached-file">
+                        <span class="file-icon">📎</span>
+                        <a href="#">example_image.jpg</a>
+                    </div>
+                    <div class="attached-file">
+                        <span class="file-icon">📎</span>
+                        <a href="#">example_document.pdf</a>
+                    </div>
+                    <!-- Add more attached files here -->
+                </div>
+                <div class="message-input">
+                    <textarea id="message-text" placeholder="Type your message..."></textarea>
+                    <input type="file" id="file-input" accept="image/*, application/pdf" style="display: none;">
+                    <label for="file-input" id="file-label">
+                        <span class="file-icon">📎</span> Attach File
+                    </label>
+                    <button id="send-button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
