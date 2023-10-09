@@ -2,5 +2,6 @@ interface Message{
     id:number;
     text:string;
     from:number;
-    attachments:Array<object>;
+    dateTime:string;
+    attachments:Array<object>; 
 }
