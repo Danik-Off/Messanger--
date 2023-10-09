@@ -6,7 +6,7 @@ function ItemMsg(props: Message) {
       <div className={"message " +( (props.from != 0) ? "received" : "sent")}>
         <div className="message-content">
           <p>{props.text}</p>
-          <span className="timestamp">10:30 AM</span>
+          <span className="timestamp">{props.dateTime}</span>
         </div>
       </div>
     </>

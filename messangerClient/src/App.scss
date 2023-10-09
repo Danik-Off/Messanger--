@@ -13,7 +13,8 @@ body{
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 720px;
+    height: 100vh;
+    max-height: 720px;
    
     .page-container{
         display: flex;

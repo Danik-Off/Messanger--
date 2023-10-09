@@ -4,9 +4,11 @@ import MessageInput from "./messageInput";
 
 function ChatWindow() {
   const msgs: Message[] = [
-    { id: 0, text: "Hello", from: 0, attachments: [] },
-    { id: 0, text: "World", from: 0, attachments: [] },
-    { id: 0, text: "!", from: 0, attachments: [] },
+    { id: 0, text: "Hello", from: 0, attachments: [],dateTime:"10:30 9 октября 2023" },
+    { id: 0, text: "Hello", from: 40, attachments: [],dateTime:"10:40 9 октября 2023" },
+    { id: 0, text: "Hello", from: 0, attachments: [],dateTime:"10:46 9 октября 2023" },
+    { id: 0, text: "Hello", from: 40, attachments: [],dateTime:"10:49 9 октября 2023" },
+
   ];
 
   return (
@@ -20,6 +22,7 @@ function ChatWindow() {
             id={msg.id}
             text={msg.text}
             from={msg.from}
+            dateTime={msg.dateTime}
             attachments={msg.attachments}
             key={i}
           />
