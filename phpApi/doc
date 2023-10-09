@@ -1,0 +1,6 @@
+api/user.get.php
+token, id
+api/messages.getDialogs.php
+token
+https://lspu-lipetsk.ru/api/messages.getMessage.php?
+token, peer_id
