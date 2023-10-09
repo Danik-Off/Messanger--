@@ -1,12 +1,15 @@
 import "./messageInput.scss"
+import clipImg from "../assets/PaperClip_4895.png"
+
 function MessageInput() {
   return (
     <div className="message-input">
-      <textarea id="message-text" placeholder="Type your message..."></textarea>
-      <input type="file" id="file-input" accept="image/*, application/pdf" />
       <label htmlFor="file-input" id="file-label">
-        <span className="file-icon">📎</span> Attach File
+        <img src={clipImg}></img>
       </label>
+      <input id="message-text" placeholder="Введите сообщение..."></input>
+      <input type="file" id="file-input" accept="image/*, application/pdf" />
+      
       <button id="send-button">Send</button>
     </div>
   );

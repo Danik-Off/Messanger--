@@ -4,7 +4,7 @@ import "./header.scss"
 function Header() {
   return (
     <header className="header">
-      <h1>NameChatService</h1>
+      <span>header</span>
     </header>
   );
 }

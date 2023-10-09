@@ -1,13 +1,13 @@
 import "./itemMsg.scss"
 
-function ItemMsg() {
+function ItemMsg(props:Message) {
   
 
   return (
     <>
      <div className="message received">
           <div className="message-content">
-            <p>Contact 1: Hello! How are you doing?</p>
+            <p>{props.text}</p>
             <span className="timestamp">10:30 AM</span>
           </div>
         </div>

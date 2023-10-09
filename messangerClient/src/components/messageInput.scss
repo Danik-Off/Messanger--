@@ -1,0 +1,58 @@
+/* Message Input Styles */
+.message-input {
+    display: flex;
+    align-items: center;
+    background-color: #009688;
+    border-top: 1px solid black;
+  
+    #file-input {
+      display: none;
+    }
+  
+    #file-label {
+      position: relative;
+      height: 2rem;
+  
+      img {
+        height: 100%;
+      }
+    }
+  
+    #message-text {
+      border: none;
+      flex-grow: 1;
+      padding:0  10px 0;
+
+      font-size: 16px;
+      outline: none;
+      background-color: transparent; /* Прозрачный фон */
+      color: #fff; /* Белый текст */
+      border: 1px solid transparent; /* Убираем рамку */
+      transition: border-color 0.3s; /* Анимация изменения цвета рамки */
+    }
+  
+    #message-text::placeholder {
+      color: rgba(255, 255, 255, 0.7); /* Цвет плейсхолдера с прозрачностью */
+    }
+  
+    #message-text:focus {
+      border-bottom: 1px solid #00796b;
+     
+    }
+  
+    #send-button {
+      background-color: #009688;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s; /* Анимация изменения цвета кнопки */
+    }
+  
+    #send-button:hover {
+      background-color: #00796b;
+    }
+  }
+  

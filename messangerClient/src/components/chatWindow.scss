@@ -1,0 +1,24 @@
+
+/* Chat Window Styles */
+.chat-window {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.chat-header {
+    background-color: #009688; /* Teal */
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.chat-header h2 {
+    margin: 0;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    
+}
