@@ -5,9 +5,7 @@ import { GetDialogsUrl } from '../../routes/routes';
 
 export const fetchDialogs = createAsyncThunk(
     'users/fetchUserById', // отображается в dev tools и должно быть уникально у каждого Thunk
-    async (userId) => {
-      // Здесь только логика запроса и возврата данных
-      // Никакой обработки ошибок
+    async () => {
       const response = await axios.get(GetDialogsUrl);
       return response.data;
     }
