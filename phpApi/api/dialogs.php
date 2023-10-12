@@ -1,107 +1,47 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+header('Content-Type: application/json; charset=utf-8');
+define('SPAIZ_CODE', true);
+
+
 
 include_once "objects/dialog.php";
+include_once "core/DialogAPI.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . '/libs/tokenParse.php';
 
-class DialogAPI {
-    private $dialogs = [];
+$userID = ParseToken("");
 
-    public function __construct() {
-     
-        $this->dialogs[] = new Dialog(
-            1,                    // id
-            true,                 // isGroupChat
-            'Название диалога',   // title
-            [0,1, 40], // participants (это массив и может содержать имена участников)
-            '2023-10-10 10:00:00', // createdAt
-            '2023-10-10 10:30:00', // updatedAt
-            'access',              // accessControl
-            [1], // adminUsers
-            'Описание диалога'     // description
-        );
-        $this->dialogs[] = new Dialog(
-            2,                    // id
-            false,                 // isGroupChat
-            'Kbxy',   // title
-            [0, 40], // participants (это массив и может содержать имена участников)
-            '2023-10-10 10:00:00', // createdAt
-            '2023-10-10 10:30:00', // updatedAt
-            'access',              // accessControl
-            [], // adminUsers
-            'Описание'     // description
-        );
-    
-        
-    }
+$userID =  $userID["id"];
 
-    public function getAllDialogs() {
-        return $this->dialogs;
-    }
 
-    public function getDialogById($peer_id) {
-        foreach ($this->dialogs as $dialog) {
-            if ($dialog->peer_id == $peer_id) {
-                return $dialog;
-            }
-        }
-        return null;
-    }
+$user = new User();
+$user->Get($userID);
 
-    public function createDialog($title) {
-        $newDialog = new Dialog(
-            count($this->dialogs) + 1,
-            true, // Пример значения для isGroupChat (можете изменить по своему усмотрению)
-            $title,
-            [], // Пример значения для participants (можете изменить по своему усмотрению)
-            date('Y-m-d H:i:s'), // Пример значения для createdAt
-            date('Y-m-d H:i:s'), // Пример значения для updatedAt
-            'access', // Пример значения для accessControl (можете изменить по своему усмотрению)
-            [], // Пример значения для adminUsers (можете изменить по своему усмотрению)
-            '' // Пример значения для description (можете изменить по своему усмотрению)
-        );
-        $this->dialogs[] = $newDialog;
-        return $newDialog;
-    }
+$db = new DataBase();
 
-    public function getDialogMessages($dialogId) {
-        $dialog = $this->getDialogById($dialogId);
-        if ($dialog) {
-            return $dialog['messages'];
-        }
-        return null;
-    }
 
-    public function addMessageToDialog($dialogId, $text) {
-        $dialog = $this->getDialogById($dialogId);
-        if ($dialog) {
-            $newMessage = ['id' => count($dialog['messages']) + 1, 'text' => $text];
-            $dialog['messages'][] = $newMessage;
-            return $newMessage;
-        }
-        return null;
-    }
-}
-
-// Обработка запроса
 $api = new DialogAPI();
 $requestMethod = $_SERVER['REQUEST_METHOD'];
-header('Content-Type: application/json; charset=utf-8');
 
 switch ($requestMethod) {
     case 'GET':
         if (isset($_GET['peer_id'])) {
             $id = intval($_GET['peer_id']);
-            $dialog = $api->getDialogById($id);
+            $dialog = $api->getDialogById($id,$userID);
             if ($dialog) {
                 header('Content-Type: application/json');
-                echo json_encode($dialog);
+                echo json_encode($dialog,JSON_UNESCAPED_UNICODE);
             } else {
                 http_response_code(404);
-                echo json_encode(['error' => 'Диалог не найден']);
+                echo json_encode(['error' => 'Диалог не найден'],JSON_UNESCAPED_UNICODE);
             }
         } else {
-            $dialogs = $api->getAllDialogs();
+            $dialogs = $api->getAllDialogs($userID);
             header('Content-Type: application/json');
-            echo json_encode($dialogs);
+            echo json_encode($dialogs,JSON_UNESCAPED_UNICODE);
         }
         break;
 

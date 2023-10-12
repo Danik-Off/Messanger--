@@ -14,7 +14,7 @@ class Dialog
     public function __construct(
         int $id =0,
         bool $isGroupChat,
-        ?string $title = null,
+        string $title ,
         array $participants,
         string $createdAt,
         string $updatedAt,
