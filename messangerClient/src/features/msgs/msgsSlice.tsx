@@ -8,7 +8,7 @@ import axios from "axios";
 import { GetDialogsUrl } from "../../routes/routes";
 import { json } from "react-router-dom";
 
-export const fetchDialogs = createAsyncThunk(
+export const fetchMsgs = createAsyncThunk(
   "dialogs/fetchDialogs", // Убедитесь, что имя уникально и отражает операцию
   async () => {
     try {
@@ -39,14 +39,14 @@ export const dialogSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDialogs.pending, (state) => {
+      .addCase(fetchMsgs.pending, (state) => {
         state.loadingStatus = "loading";
       })
-      .addCase(fetchDialogs.fulfilled, (state, action) => {
+      .addCase(fetchMsgs.fulfilled, (state, action) => {
         msgsAdapter.setAll(state, action.payload);
         state.loadingStatus = "idle";
       })
-      .addCase(fetchDialogs.rejected, (state, action) => {
+      .addCase(fetchMsgs.rejected, (state, action) => {
         state.loadingStatus = "failed";
         state.error = action.error.message;
       });
@@ -61,19 +61,8 @@ export const selectMsgsState = (state: any) => state.dialogs;
 // Селектор для получения массива диалогов
 export const selectMsgs = createSelector(
   selectMsgsState,
-  (dialogs) => msgsAdapter.getSelectors().selectAll(dialogs)
+  (msgs) => msgsAdapter.getSelectors().selectAll(msgs)
 );
 
-// Селектор для получения статуса загрузки
-export const selectLoadingStatus = createSelector(
-  selectMsgsState,
-  (dialogs) => dialogs.loadingStatus
-);
-
-// Селектор для получения ошибки
-export const selectError = createSelector(
-  selectMsgsState,
-  (dialogs) => dialogs.error
-);
 
 export default dialogSlice.reducer;

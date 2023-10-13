@@ -3,6 +3,7 @@ import {
   createSlice,
   createEntityAdapter,
   createSelector,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 import { GetDialogsUrl } from "../../routes/routes";
@@ -24,6 +25,7 @@ interface DialogState {
   dialogs: Dialog[];
   loadingStatus: "idle" | "loading" | "failed";
   error: any;
+  active_peer: number;
 }
 
 const dialogsAdapter = createEntityAdapter({
@@ -34,12 +36,17 @@ const dialogsAdapter = createEntityAdapter({
 const initialState = dialogsAdapter.getInitialState({
   loadingStatus: "idle",
   error: null,
+  active_peer: 0,
 } as DialogState);
 
 export const dialogSlice = createSlice({
   name: "dialogs",
   initialState,
-  reducers: {},
+  reducers: {
+    setActiveDialogPeer: (state, action: PayloadAction<number>) => {
+      state.active_peer = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDialogs.pending, (state) => {
@@ -48,6 +55,7 @@ export const dialogSlice = createSlice({
       .addCase(fetchDialogs.fulfilled, (state, action) => {
         dialogsAdapter.setAll(state, action.payload);
         state.loadingStatus = "idle";
+        state.active_peer = action.payload[0].peer_id;
       })
       .addCase(fetchDialogs.rejected, (state, action) => {
         state.loadingStatus = "failed";
@@ -56,7 +64,7 @@ export const dialogSlice = createSlice({
   },
 });
 
-export const {} = dialogSlice.actions;
+export const { setActiveDialogPeer } = dialogSlice.actions;
 
 // Селектор для получения всего состояния диалогов
 export const selectDialogsState = (state: any) => state.dialogs;
@@ -65,17 +73,10 @@ export const selectDialogsState = (state: any) => state.dialogs;
 export const selectDialogs = createSelector(selectDialogsState, (dialogs) =>
   dialogsAdapter.getSelectors().selectAll(dialogs)
 );
-
-// Селектор для получения статуса загрузки
-export const selectLoadingStatus = createSelector(
+export const selectActiveDialog = createSelector(
   selectDialogsState,
-  (dialogs) => dialogs.loadingStatus
-);
-
-// Селектор для получения ошибки
-export const selectError = createSelector(
-  selectDialogsState,
-  (dialogs) => dialogs.error
+  (dialogs) =>
+    dialogsAdapter.getSelectors().selectById(dialogs, dialogs.active_peer)
 );
 
 export default dialogSlice.reducer;

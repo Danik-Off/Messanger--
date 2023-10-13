@@ -1,8 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { selectDialogsState, setActiveDialogPeer } from "../features/dialogs/dialogSlice";
 import "./chatWindow.scss";
 import ItemMsg from "./itemMsg";
 import MessageInput from "./messageInput";
 
+
 function ChatWindow() {
+  const dispatch =  useDispatch();
+  const dialogSelected = useSelector(selectDialogsState) ;
+  console.log(dialogSelected);
+
+
   const msgs: Message[] = [
     { id: 0, text: "Hello", from: 0, attachments: [],dateTime:"10:30 9 октября 2023" },
     { id: 0, text: "Hello", from: 40, attachments: [],dateTime:"10:40 9 октября 2023" },
