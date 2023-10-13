@@ -53,6 +53,6 @@ export const dialogSlice = createSlice({
 
 export const {  } = dialogSlice.actions;
 
-export const selectDialogs = (state:any) => state;
+export const selectDialogs = (state:any) => state.dialogs;
 
 export default dialogSlice.reducer;
