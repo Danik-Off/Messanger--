@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json; charset=utf-8");
+// header("Content-Type: application/json; charset=utf-8");
 define("SPAIZ_CODE", true);
 
 include_once "objects/msg.php";

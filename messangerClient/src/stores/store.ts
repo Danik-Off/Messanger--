@@ -6,7 +6,7 @@ import dialogSlice from '../features/dialogs/dialogSlice'
 const store = configureStore({
   reducer: {
     counter: counterSlice,
-    dialogs:dialogSlice
+    dialogs:dialogSlice,
   },
 })
 

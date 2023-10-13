@@ -14,7 +14,12 @@
         :last-child {
             border-bottom: none;
         }
+       
     }
+    .active{
+            background: #333;
+            color: white;
+        }
     #search-form{
         input{
             width: 100%;
