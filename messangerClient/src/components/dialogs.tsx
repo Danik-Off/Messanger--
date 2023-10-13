@@ -7,14 +7,16 @@ function Dialogs() {
  
   const [selectedDialog, setSelectedDialog] = useState(2);
   const dispatch = useDispatch();
-  const dialogs = useSelector(selectDialogs).dialogs as Dialog[];
+  const dialogs = useSelector(selectDialogs) as Dialog[];
+  console.log(dialogs);
+
   
-  
+
 
   useEffect(() => {
     dispatch(fetchDialogs() as any);
   }, []);
-
+ 
   
   function setActiveDialog(id: number) {
     setSelectedDialog(id);

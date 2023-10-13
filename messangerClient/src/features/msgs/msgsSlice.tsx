@@ -20,21 +20,18 @@ export const fetchDialogs = createAsyncThunk(
   }
 );
 
-interface DialogState {
-  dialogs: Dialog[];
+interface MsgState {
   loadingStatus: "idle" | "loading" | "failed";
   error: any;
 }
 
-const dialogsAdapter = createEntityAdapter({
-  selectId: (dialog: Dialog) => dialog.peer_id,
-  // Инициализация дополнительных полей (если необходимо)
-  // ...
+const msgsAdapter = createEntityAdapter({
+  selectId: (msg: Message) => msg.id,
 });
-const initialState = dialogsAdapter.getInitialState({
+const initialState = msgsAdapter.getInitialState({
   loadingStatus: "idle",
   error: null,
-} as DialogState);
+} as MsgState);
 
 export const dialogSlice = createSlice({
   name: "dialogs",
@@ -46,7 +43,7 @@ export const dialogSlice = createSlice({
         state.loadingStatus = "loading";
       })
       .addCase(fetchDialogs.fulfilled, (state, action) => {
-        dialogsAdapter.setAll(state, action.payload);
+        msgsAdapter.setAll(state, action.payload);
         state.loadingStatus = "idle";
       })
       .addCase(fetchDialogs.rejected, (state, action) => {
@@ -59,22 +56,23 @@ export const dialogSlice = createSlice({
 export const {} = dialogSlice.actions;
 
 // Селектор для получения всего состояния диалогов
-export const selectDialogsState = (state: any) => state.dialogs;
+export const selectMsgsState = (state: any) => state.dialogs;
 
 // Селектор для получения массива диалогов
-export const selectDialogs = createSelector(selectDialogsState, (dialogs) =>
-  dialogsAdapter.getSelectors().selectAll(dialogs)
+export const selectMsgs = createSelector(
+  selectMsgsState,
+  (dialogs) => msgsAdapter.getSelectors().selectAll(dialogs)
 );
 
 // Селектор для получения статуса загрузки
 export const selectLoadingStatus = createSelector(
-  selectDialogsState,
+  selectMsgsState,
   (dialogs) => dialogs.loadingStatus
 );
 
 // Селектор для получения ошибки
 export const selectError = createSelector(
-  selectDialogsState,
+  selectMsgsState,
   (dialogs) => dialogs.error
 );
 

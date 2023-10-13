@@ -1,29 +1,54 @@
 <?php
 // header("Content-Type: application/json; charset=utf-8");
-define("SPAIZ_CODE", true);
 
+include_once "objects/dialog.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/configs/user.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/libs/DataBase.php";
 include_once "objects/msg.php";
-
+$user = new User();
 class MessageAPI
 {
   private $messages = [];
+  private $db;
 
   public function __construct()
   {
-    $this->messages[] = new Msg(
-      1, // id
-      1, // peer_id
-      "Текст сообщения", // text
-      0, // from
-      ["прикрепление1", "прикрепление2"], // attachments (массив прикрепленных файлов)
-      "2023-10-10 10:00:00", // createdAt
-      "2023-10-10 10:30:00", // updatedAt
-      true // isRead (флаг прочтения сообщения)
-    );
+    $this->db = new DataBase();
   }
 
-  public function getAllMessages()
+  public function getAllMessages($peer_id)
   {
+    $sql =
+      "SELECT `msgs`.`id`,`user_dialog`.`peer_id`,`msgs`.`text`,`msgs`.`from_id`,`msgs`.`attachment`,`msgs`.`createdAt`,msgs.updatedAt,msgs.isRead
+      FROM `msgs`
+      LEFT JOIN `user_dialog`
+      ON user_dialog.dialog_id = msgs.dialog_id
+      WHERE `user_dialog`.`peer_id` = " . $peer_id;
+
+    $result = $this->db->queryWithoutFetch($sql);
+
+    $this->messages = [];
+
+    if ($result) {
+      foreach ($result as $row) {
+        $dialog =new Msg(
+          $row["id"], // id
+          $row["peer_id"],
+          $row["text"], // text
+          $row["from_id"], // from
+          json_decode($row["attachment"])??[], // attachments (массив прикрепленных файлов)
+          $row["createdAt"], // createdAt
+          $row["updatedAt"],
+          $row["text"], // updatedAt
+          $row["updatedAt"]// isRead (флаг прочтения сообщения)
+        );
+        
+
+        $this->messages[] = $dialog;
+      }
+    }
+
+
     return $this->messages;
   }
 
