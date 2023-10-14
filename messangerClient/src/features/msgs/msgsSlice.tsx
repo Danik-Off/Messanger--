@@ -9,7 +9,7 @@ import { GetDialogsUrl } from "../../routes/routes";
 import { json } from "react-router-dom";
 
 export const fetchMsgs = createAsyncThunk(
-  "dialogs/fetchDialogs", // Убедитесь, что имя уникально и отражает операцию
+  "msgs/fetchMsgs", // Убедитесь, что имя уникально и отражает операцию
   async () => {
     try {
       const response = await axios.get(GetDialogsUrl);
@@ -33,7 +33,7 @@ const initialState = msgsAdapter.getInitialState({
   error: null,
 } as MsgState);
 
-export const dialogSlice = createSlice({
+export const msgsSlice = createSlice({
   name: "dialogs",
   initialState,
   reducers: {},
@@ -53,7 +53,7 @@ export const dialogSlice = createSlice({
   },
 });
 
-export const {} = dialogSlice.actions;
+export const {} = msgsSlice.actions;
 
 // Селектор для получения всего состояния диалогов
 export const selectMsgsState = (state: any) => state.dialogs;
@@ -65,4 +65,4 @@ export const selectMsgs = createSelector(
 );
 
 
-export default dialogSlice.reducer;
+export default msgsSlice.reducer;
