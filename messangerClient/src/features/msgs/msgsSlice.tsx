@@ -34,7 +34,7 @@ const initialState = msgsAdapter.getInitialState({
 } as MsgState);
 
 export const msgsSlice = createSlice({
-  name: "dialogs",
+  name: "msgs",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
