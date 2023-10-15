@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
 import "./dialogs.scss";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDialogs, selectDialogs  } from "../features/dialogs/dialogSlice";
+import { fetchDialogs, selectDialogs, selectDialogsState, setActiveDialogPeer  } from "../features/dialogs/dialogSlice";
 
 function Dialogs() {
  
   const [selectedDialog, setSelectedDialog] = useState(2);
   const dispatch = useDispatch();
+  const dialogsState = useSelector(selectDialogsState)
   const dialogs = useSelector(selectDialogs) as Dialog[];
-  console.log(dialogs);
+  
+  
 
   
 
 
   useEffect(() => {
     dispatch(fetchDialogs() as any);
+    setActiveDialog(dialogsState.active_peer);
   }, []);
  
   
   function setActiveDialog(id: number) {
     setSelectedDialog(id);
+    setActiveDialogPeer(id);
+    console.log(dialogsState.active_peer)
   }
 
   return (
