@@ -10,8 +10,10 @@ import { GetDialogsUrl } from "../../routes/routes";
 import { json } from "react-router-dom";
 
 export const fetchDialogs = createAsyncThunk(
+  
   "dialogs/fetchDialogs", // Убедитесь, что имя уникально и отражает операцию
   async () => {
+    
     try {
       const response = await axios.get(GetDialogsUrl);
       return response.data;
@@ -56,6 +58,7 @@ export const dialogSlice = createSlice({
         dialogsAdapter.setAll(state, action.payload);
         state.loadingStatus = "idle";
         state.active_peer = action.payload[0].peer_id;
+       
       })
       .addCase(fetchDialogs.rejected, (state, action) => {
         state.loadingStatus = "failed";
@@ -66,6 +69,7 @@ export const dialogSlice = createSlice({
 
 export const { setActiveDialogPeer } = dialogSlice.actions;
 
+export const selectActivePeer= (state:any) => state.dialogs.active_peer;
 // Селектор для получения всего состояния диалогов
 export const selectDialogsState = (state: any) => state.dialogs;
 
@@ -73,10 +77,11 @@ export const selectDialogsState = (state: any) => state.dialogs;
 export const selectDialogs = createSelector(selectDialogsState, (dialogs) =>
   dialogsAdapter.getSelectors().selectAll(dialogs)
 );
+
 export const selectActiveDialog = createSelector(
-  selectDialogsState,
-  (dialogs) =>
-    dialogsAdapter.getSelectors().selectById(dialogs, dialogs.active_peer)
+  selectDialogs,
+  selectActivePeer,
+  (dialogs, activePeer) => dialogs.find((dialog) => dialog.peer_id === activePeer)
 );
 
 export default dialogSlice.reducer;

@@ -5,14 +5,13 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-import { GetDialogsUrl } from "../../routes/routes";
-import { json } from "react-router-dom";
+import { GetMsgsUrl } from "../../routes/routes";
 
 export const fetchMsgs = createAsyncThunk(
   "msgs/fetchMsgs", // Убедитесь, что имя уникально и отражает операцию
-  async () => {
+  async (peer_id: number) => {
     try {
-      const response = await axios.get(GetDialogsUrl);
+      const response = await axios.get(GetMsgsUrl(peer_id));
       return response.data;
     } catch (error) {
       throw error;
@@ -44,6 +43,7 @@ export const msgsSlice = createSlice({
       })
       .addCase(fetchMsgs.fulfilled, (state, action) => {
         msgsAdapter.setAll(state, action.payload);
+        
         state.loadingStatus = "idle";
       })
       .addCase(fetchMsgs.rejected, (state, action) => {
@@ -55,14 +55,10 @@ export const msgsSlice = createSlice({
 
 export const {} = msgsSlice.actions;
 
-// Селектор для получения всего состояния диалогов
-export const selectMsgsState = (state: any) => state.dialogs;
+export const selectMsgsState = (state: any) => state.msgs;
 
-// Селектор для получения массива диалогов
-export const selectMsgs = createSelector(
-  selectMsgsState,
-  (msgs) => msgsAdapter.getSelectors().selectAll(msgs)
+export const selectMsgs = createSelector(selectMsgsState, (msgs) =>
+  msgsAdapter.getSelectors().selectAll(msgs)
 );
-
 
 export default msgsSlice.reducer;

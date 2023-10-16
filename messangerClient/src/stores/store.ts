@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterSlice from '../features/counter/counterSlice'
 import dialogSlice from '../features/dialogs/dialogSlice'
+import msgsSlice from '../features/msgs/msgsSlice'
 // ...
 
 const store = configureStore({
   reducer: {
     counter: counterSlice,
     dialogs:dialogSlice,
+    msgs:msgsSlice
   },
 })
 

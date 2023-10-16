@@ -1,24 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectDialogsState, setActiveDialogPeer } from "../features/dialogs/dialogSlice";
+import { selectActiveDialog, selectDialogsState, setActiveDialogPeer } from "../features/dialogs/dialogSlice";
 import "./chatWindow.scss";
 import ItemMsg from "./itemMsg";
 import MessageInput from "./messageInput";
+import { useEffect } from "react";
+import { fetchMsgs, selectMsgs } from "../features/msgs/msgsSlice";
 
 
 function ChatWindow() {
   const dispatch =  useDispatch();
   const dialogSelected = useSelector(selectDialogsState) ;
-  console.log(dialogSelected);
+  const actualDialog =  useSelector(selectActiveDialog);
+
+  const msgs = useSelector(selectMsgs);
+
+  console.log(msgs)
+  const peer_id = actualDialog?.peer_id??0;
+
+  useEffect(()=>{
+    dispatch(fetchMsgs(peer_id) as any);
+  },[actualDialog])
 
 
-  const msgs: Message[] = [
-    { id: 0, text: "Hello", from: 0, attachments: [],dateTime:"10:30 9 октября 2023" },
-    { id: 0, text: "Hello", from: 40, attachments: [],dateTime:"10:40 9 октября 2023" },
-    { id: 0, text: "Hello", from: 0, attachments: [],dateTime:"10:46 9 октября 2023" },
-    { id: 0, text: "Hello", from: 40, attachments: [],dateTime:"10:49 9 октября 2023" },
-
-  ];
-
+ 
   return (
     <div className="chat-window">
       <div className="chat-header">

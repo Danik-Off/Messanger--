@@ -62,8 +62,21 @@ class MessageAPI
     return null;
   }
 
-  public function createMessage($text)
+  public function createMessage($peer_id,$text)
   {
+    $ip = $_SERVER['REMOTE_ADDR'];
+    "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
+    SELECT 
+     
+        `dialog_id`,        -- dialog_id
+         ".$text."  ,          -- text
+        `dialog_id`,          -- from_id
+        '[]',          -- attachment
+       0,          -- isRead
+        ".$ip."           -- ip
+    FROM `user_dialog`
+    WHERE `user_dialog`.`peer_id` = 1";
+    
     $newMessage = ["id" => count($this->messages) + 1, "text" => $text];
     $this->messages[] = $newMessage;
     return $newMessage;

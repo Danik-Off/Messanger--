@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./dialogs.scss";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDialogs, selectDialogs, selectDialogsState, setActiveDialogPeer  } from "../features/dialogs/dialogSlice";
+import { fetchDialogs, selectActiveDialog, selectDialogs, selectDialogsState, setActiveDialogPeer  } from "../features/dialogs/dialogSlice";
 
 function Dialogs() {
  
@@ -9,7 +9,7 @@ function Dialogs() {
   const dispatch = useDispatch();
   const dialogsState = useSelector(selectDialogsState)
   const dialogs = useSelector(selectDialogs) as Dialog[];
-  
+  const actualDialog =  useSelector(selectActiveDialog);
   
 
   
@@ -17,14 +17,19 @@ function Dialogs() {
 
   useEffect(() => {
     dispatch(fetchDialogs() as any);
-    setActiveDialog(dialogsState.active_peer);
+   
   }, []);
- 
+  
+  useEffect(() => {
+    setActiveDialog(dialogsState.active_peer);
+  }, [dialogs]);
+
   
   function setActiveDialog(id: number) {
     setSelectedDialog(id);
-    setActiveDialogPeer(id);
-    console.log(dialogsState.active_peer)
+    dispatch( setActiveDialogPeer(id));
+ 
+   
   }
 
   return (

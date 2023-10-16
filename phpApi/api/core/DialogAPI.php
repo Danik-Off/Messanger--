@@ -32,7 +32,7 @@ class DialogAPI
       foreach ($result as $row) {
         $dialog = new Dialog(
           $row["peer_id"],
-          false,
+          $row["isGroupChat"],
           $row["title"],
           [], // Нужно добавить участников, это можно получить из другого запроса
           "", // Нужно получить из базы данных
@@ -66,7 +66,7 @@ class DialogAPI
       $row = $result->fetch_array();
       $dialog = new Dialog(
         $peer_id,
-        false,
+        $row["isGroupChat"],
         $row["title"],
         [], // Нужно добавить участников, это можно получить из другого запроса
         $row["createdAt"], // Нужно получить из базы данных
