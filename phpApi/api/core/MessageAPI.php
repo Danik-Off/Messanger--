@@ -16,14 +16,14 @@ class MessageAPI
     $this->db = new DataBase();
   }
 
-  public function getAllMessages($peer_id)
+  public function getAllMessages($peer_id,$user_id)
   {
     $sql =
       "SELECT `msgs`.`id`,`user_dialog`.`peer_id`,`msgs`.`text`,`msgs`.`from_id`,`msgs`.`attachment`,`msgs`.`createdAt`,msgs.updatedAt,msgs.isRead
       FROM `msgs`
       LEFT JOIN `user_dialog`
       ON user_dialog.dialog_id = msgs.dialog_id
-      WHERE `user_dialog`.`peer_id` = " . $peer_id;
+      WHERE `user_dialog`.`peer_id` = " . $peer_id ." AND `user_dialog`.`user_id` = " . $user_id ;
 
     $result = $this->db->queryWithoutFetch($sql);
 
@@ -62,22 +62,34 @@ class MessageAPI
     return null;
   }
 
-  public function createMessage($peer_id,$text)
+  public function createMessage($peer_id,$user_id,$text)//,$attachment
   {
     $ip = $_SERVER['REMOTE_ADDR'];
-    "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
+    $sql = "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
     SELECT 
      
-        `dialog_id`,        -- dialog_id
-         ".$text."  ,          -- text
-        `dialog_id`,          -- from_id
-        '[]',          -- attachment
-       0,          -- isRead
-        ".$ip."           -- ip
+        `dialog_id`,        
+         '".$text."'  ,         
+        `user_id`,        
+        '[]',          
+        0,          
+        '".$ip."'     
     FROM `user_dialog`
-    WHERE `user_dialog`.`peer_id` = 1";
-    
-    $newMessage = ["id" => count($this->messages) + 1, "text" => $text];
+    WHERE `user_dialog`.`peer_id` = ".$peer_id ." AND `user_dialog`.`user_id` = " . $user_id;
+    $result = $this->db->queryWithoutFetch($sql);
+
+   
+    $newMessage = =new Msg(
+      0, // id
+      $peer_id,
+      $text, // text
+      $row["from_id"], // from
+      json_decode($row["attachment"])??[], // attachments (массив прикрепленных файлов)
+      $row["createdAt"], // createdAt
+      $row["updatedAt"],
+      $row["text"], // updatedAt
+      $row["updatedAt"]// isRead (флаг прочтения сообщения)
+    );
     $this->messages[] = $newMessage;
     return $newMessage;
   }

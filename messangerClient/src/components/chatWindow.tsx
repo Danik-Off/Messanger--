@@ -8,11 +8,12 @@ import { fetchMsgs, selectMsgs } from "../features/msgs/msgsSlice";
 
 
 function ChatWindow() {
+  
   const dispatch =  useDispatch();
   const dialogSelected = useSelector(selectDialogsState) ;
   const actualDialog =  useSelector(selectActiveDialog);
 
-  const msgs = useSelector(selectMsgs);
+  const msgs = useSelector(selectMsgs) as Message[];
 
   console.log(msgs)
   const peer_id = actualDialog?.peer_id??0;
@@ -26,7 +27,7 @@ function ChatWindow() {
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <h2>Chat with Contact 1</h2>
+        <h2>{actualDialog?.title}</h2>
       </div>
       <div className="chat-messages">
         {[...msgs].map((msg, i) => (

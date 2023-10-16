@@ -1,12 +1,18 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 header('Content-Type: application/json');
 define('SPAIZ_CODE', true);
 
 include_once "core/MessageAPI.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . '/libs/tokenParse.php';
 // Обработка запроса
+
+$userID = ParseToken("");
+
+$userID =  $userID["id"];
+
 $api = new MessageAPI();
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
@@ -23,16 +29,16 @@ switch ($requestMethod) {
                 echo json_encode(['error' => 'Сообщение не найдено']);
             }
         } else {
-            $messages = $api->getAllMessages($_GET['peer_id']);
+            $messages = $api->getAllMessages($_GET['peer_id'],$userID);
           
             echo json_encode($messages,JSON_UNESCAPED_UNICODE);
         }
         break;
 
     case 'POST':
-        $data = json_decode(file_get_contents('php://input'), true);
-        if (isset($data['text'])) {
-            $newMessage = $api->createMessage($data['text']);
+       
+        if (isset($_POST['text'])) {
+            $newMessage = $api->createMessage( $_REQUEST['peer_id'],$userID,$_POST['text']);
           
             echo json_encode($newMessage);
         } else {
