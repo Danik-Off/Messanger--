@@ -16,14 +16,17 @@ class MessageAPI
     $this->db = new DataBase();
   }
 
-  public function getAllMessages($peer_id,$user_id)
+  public function getAllMessages($peer_id, $user_id)
   {
     $sql =
       "SELECT `msgs`.`id`,`user_dialog`.`peer_id`,`msgs`.`text`,`msgs`.`from_id`,`msgs`.`attachment`,`msgs`.`createdAt`,msgs.updatedAt,msgs.isRead
       FROM `msgs`
       LEFT JOIN `user_dialog`
       ON user_dialog.dialog_id = msgs.dialog_id
-      WHERE `user_dialog`.`peer_id` = " . $peer_id ." AND `user_dialog`.`user_id` = " . $user_id ;
+      WHERE `user_dialog`.`peer_id` = " .
+      $peer_id .
+      " AND `user_dialog`.`user_id` = " .
+      $user_id;
 
     $result = $this->db->queryWithoutFetch($sql);
 
@@ -31,23 +34,21 @@ class MessageAPI
 
     if ($result) {
       foreach ($result as $row) {
-        $dialog =new Msg(
+        $dialog = new Msg(
           $row["id"], // id
           $row["peer_id"],
           $row["text"], // text
           $row["from_id"], // from
-          json_decode($row["attachment"])??[], // attachments (массив прикрепленных файлов)
+          json_decode($row["attachment"]) ?? [], // attachments (массив прикрепленных файлов)
           $row["createdAt"], // createdAt
           $row["updatedAt"],
           $row["text"], // updatedAt
-          $row["updatedAt"]// isRead (флаг прочтения сообщения)
+          $row["updatedAt"] // isRead (флаг прочтения сообщения)
         );
-        
 
         $this->messages[] = $dialog;
       }
     }
-
 
     return $this->messages;
   }
@@ -62,33 +63,41 @@ class MessageAPI
     return null;
   }
 
-  public function createMessage($peer_id,$user_id,$text)//,$attachment
+  public function createMessage($peer_id, $user_id, $text)
   {
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $sql = "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
+    //,$attachment
+    $ip = $_SERVER["REMOTE_ADDR"];
+    $sql =
+      "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
     SELECT 
         `dialog_id`,        
-         '".$text."'  ,         
+         '" .
+      $text .
+      "'  ,         
         `user_id`,        
         '[]',          
         0,          
-        '".$ip."'     
+        '" .
+      $ip .
+      "'     
     FROM `user_dialog`
-    WHERE `user_dialog`.`peer_id` = ".$peer_id ." AND `user_dialog`.`user_id` = " . $user_id;
+    WHERE `user_dialog`.`peer_id` = " .
+      $peer_id .
+      " AND `user_dialog`.`user_id` = " .
+      $user_id;
     $result = $this->db->queryWithoutFetch($sql);
 
-   
-    $newMessage =new Msg(
+    $newMessage = new Msg(
       0, // id
       $peer_id,
       $text, // text
       $user_id, // from
       [], // attachments (массив прикрепленных файлов)
       date("Y-m-d H:i:s"), // createdAt
-      date("Y-m-d H:i:s"), 
-      false// isRead (флаг прочтения сообщения)
+      date("Y-m-d H:i:s"),
+      false // isRead (флаг прочтения сообщения)
     );
-   
+
     $this->messages[] = $newMessage;
     return $this->messages;
   }
