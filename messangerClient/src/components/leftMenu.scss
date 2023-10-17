@@ -1,14 +1,15 @@
 .left-menu {
-  position: absolute;
-  background-color: #009688;
-  display: flex;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  width: 15rem;
-  z-index: 99999;
-  flex-direction: column;
-  align-items: center;
+ 
+    background-color: #009688;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 15rem;
+    z-index: 99999;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
 
 
   box-sizing: border-box;
@@ -20,9 +21,13 @@
   header {
     height: fit-content;
   }
-
+  hr{
+    width: 100%;
+  }
   ul {
     height: 100%;
+    padding: 0;
+    margin: 0;
   }
 
   footer {

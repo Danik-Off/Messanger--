@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ChatPage from "./pages/chat-page";
 import ErrorPage from "./pages/error-page";
 import SettingsPage from "./pages/settings-page";
+import * as screenfull from 'screenfull';
+import { useEffect } from "react";
 
 function App() {
   const router = createBrowserRouter([
@@ -16,13 +18,16 @@ function App() {
       path: "contacts/:contactId",
       element: <SettingsPage />,
     },
-  ]);
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen();
-  }
+  ]);  
+  
+   
 
+ 
+
+ 
+ 
   return (
-    <div className="container">
+    <div className="container" >
       <Header></Header>
       <div className="page-container">
         <RouterProvider router={router} />

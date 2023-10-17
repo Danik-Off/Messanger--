@@ -30,11 +30,12 @@ function ChatWindow() {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
- 
+
+  const newHeight = window.innerHeight ;
   return (
     <>
     <LeftNavigation></LeftNavigation>
-    <div className="chat-window">
+    <div className="chat-window" style={{height:newHeight+`px`}}>
       <div className="chat-header">
       <button>☰</button>
         <h2>{actualDialog?.title}</h2>
