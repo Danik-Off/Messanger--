@@ -7,8 +7,7 @@ class Msg
     public string $text;
     public int $from;
     public array $attachments;
-    public string $createdAt;
-    public string $updatedAt;
+    public string $dateTime;
     public bool $isRead;
  
 
@@ -18,8 +17,7 @@ class Msg
         string $text,
         int $from,
         array $attachments,
-        string $createdAt,
-        string $updatedAt,
+        string $dateTime,
         bool $isRead
     ) {
         $this->id = $id;
@@ -27,8 +25,7 @@ class Msg
         $this->text = $text;
         $this->from = $from;
         $this->attachments = $attachments;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->dateTime = $dateTime;
         $this->isRead = $isRead;
     }
 

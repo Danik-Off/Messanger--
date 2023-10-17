@@ -34,16 +34,16 @@ class MessageAPI
 
     if ($result) {
       foreach ($result as $row) {
+        
+       
         $dialog = new Msg(
           $row["id"], // id
           $row["peer_id"],
           $row["text"], // text
-          $row["from_id"], // from
+          ($row["from_id"]==$user_id)?0:$row["from_id"], // from
           json_decode($row["attachment"]) ?? [], // attachments (массив прикрепленных файлов)
-          $row["createdAt"], // createdAt
           $row["updatedAt"],
-          $row["text"], // updatedAt
-          $row["updatedAt"] // isRead (флаг прочтения сообщения)
+          $row["isRead"] // isRead (флаг прочтения сообщения)
         );
 
         $this->messages[] = $dialog;

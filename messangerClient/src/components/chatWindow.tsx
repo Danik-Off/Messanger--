@@ -42,6 +42,7 @@ function ChatWindow() {
             text={msg.text}
             from={msg.from}
             dateTime={msg.dateTime}
+            isRead={msg.isRead}
             attachments={msg.attachments}
             key={i}
           />

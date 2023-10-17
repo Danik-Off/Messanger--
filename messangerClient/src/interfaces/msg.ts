@@ -4,4 +4,5 @@ interface Message{
     from:number;
     dateTime:string;
     attachments:Array<object>; 
+    isRead:boolean,
 }
