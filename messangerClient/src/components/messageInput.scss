@@ -2,7 +2,7 @@
 .message-input {
     display: flex;
     align-items: center;
-    background-color: #009688;
+    background-color: opacify($main, 0.3);
     border-top: 1px solid black;
   
     #file-input {
@@ -41,7 +41,7 @@
     }
   
     #send-button {
-      background-color: #009688;
+      background-color: opacify($main, 0.3);
       color: #fff;
       border: none;
       border-radius: 5px;

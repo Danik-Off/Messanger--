@@ -18,21 +18,24 @@ export const fetchMsgs = createAsyncThunk(
     }
   }
 );
-interface msgPayload{
-  peer_id:number;
-  text:string;
+interface msgPayload {
+  peer_id: number | undefined;
+  msg: Message;
 }
 
 export const sendMsg = createAsyncThunk(
   "msgs/sendMsg", // Убедитесь, что имя уникально и отражает операцию
   async (data: msgPayload) => {
-    try {
-      const formData = new FormData();
-      formData.append("text",data.text);
-      const response = await axios.post(GetMsgsUrl(data.peer_id),formData);
-      return response.data;
-    } catch (error) {
-      throw error;
+    if (data.peer_id) {
+      try {
+        const formData = new FormData();
+        formData.append("text", data.msg.text);
+
+        const response = await axios.post(GetMsgsUrl(data.peer_id), formData);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
     }
   }
 );
@@ -70,11 +73,11 @@ export const msgsSlice = createSlice({
       .addCase(sendMsg.pending, (state) => {
         state.loadingStatus = "send";
       })
-      .addCase(sendMsg.fulfilled, (state,action)=>{
-       console.log(action);
+      .addCase(sendMsg.fulfilled, (state, action) => {
+        console.log(action);
         msgsAdapter.addMany(state, action.payload);
         state.loadingStatus = "idle";
-      })
+      });
   },
 });
 

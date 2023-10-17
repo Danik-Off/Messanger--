@@ -2,7 +2,7 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+  
     width: 100%;
     height: 100vh;
     box-sizing: border-box;
@@ -21,7 +21,7 @@ button{
 
 .chat-header {
     display: flex;
-    background-color: #009688;
+    background-color:  opacify(opacify($main, 0.3), 0.3); 
     color: #fff;
     padding: 1rem;
 }

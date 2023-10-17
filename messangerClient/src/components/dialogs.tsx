@@ -38,7 +38,7 @@ function Dialogs() {
         <input
           id="q"
           aria-label="Search contacts"
-          placeholder="Search"
+          placeholder="Найти диалог"
           type="search"
           name="q"
         />

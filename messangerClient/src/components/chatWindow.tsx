@@ -11,7 +11,7 @@ import LeftNavigation from "./leftMenu";
 function ChatWindow() {
   
   const dispatch =  useDispatch();
-  const dialogSelected = useSelector(selectDialogsState) ;
+  const dialogSelected = useSelector(selectDialogsState);
   const actualDialog =  useSelector(selectActiveDialog);
   const stateMsg =  useSelector(selectMsgsState);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -37,7 +37,7 @@ function ChatWindow() {
     <LeftNavigation></LeftNavigation>
     <div className="chat-window" style={{height:newHeight+`px`}}>
       <div className="chat-header">
-      <button>☰</button>
+        <button>☰</button>
         <h2>{actualDialog?.title}</h2>
       </div>
       <div className="chat-messages">
