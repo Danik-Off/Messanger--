@@ -1,44 +1,41 @@
 :-webkit-full-screen-ancestor {
-    display: none;
+  display: none;
 }
 
 /* Скрыть полосу статуса в полноэкранном режиме */
 body:-webkit-full-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
 }
+
 body {
-    margin: 0;
-    padding: 0;
-   
-      
+  margin: 0;
+  padding: 0;
 }
 
 /* Container Styles */
 .container {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1280px;
-    height: 100vh;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  height: 100vh;
 }
 
-
 .content {
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
 
 /* Медиазапрос для мобильных устройств */
 @media (max-width: 768px) {
-    body {
-        max-width: 100%; 
-        font-size: large;/* Максимальная ширина 100% для мобильных устройств */
-    }
-   
+  body {
+    max-width: 100%;
+    font-size: large; /* Максимальная ширина 100% для мобильных устройств */
+  }
 }
