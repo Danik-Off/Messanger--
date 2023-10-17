@@ -1,5 +1,6 @@
 import Avatar from "./avatar";
 import ButtonWithImg from "./buttonWithImg";
+import Dialogs from "./dialogs";
 
 import "./leftMenu.scss"
 
@@ -8,17 +9,17 @@ function LeftNavigation() {
     <div className="left-menu">
       <div className="back"><button>&#8656;</button></div>
       <header>
-        <Avatar></Avatar>
+        {/* <Avatar></Avatar> */}
         <label>Фамилия Имя</label>
       </header>
       <hr/>
       <ul>
-      {/* <ButtonWithImg img="/src/assets/1630709.svg" text="Настройки"/> */}
+      <Dialogs></Dialogs>
       </ul>
       <hr/>
       <footer>
-        <ButtonWithImg img="/src/assets/1630709.svg" text="Настройки"/>
-        <ButtonWithImg img="" text="О приложении"/>
+        {/* <ButtonWithImg img="/src/assets/1630709.svg" text="Настройки"/> */}
+        {/* <ButtonWithImg img="" text="О приложении"/> */}
         <label>v:0.0.1</label>
       </footer>
     </div>

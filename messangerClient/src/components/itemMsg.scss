@@ -1,34 +1,45 @@
 /* itemMsg.scss */
 
 .message {
-  border: 1px solid black;
-  width: min-content;
-  display: flex; 
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
   flex-direction: column;
-  min-width: 100px;
 
-  &.received{
-  
-  }
-  div{
+  div {
     height: auto;
-    
   }
-  .contMsg{
-  
-  }
-  .footerMsg{
-
-  }
-  .read-icon {
+  .container {
+    border: 1px solid #acacbe;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
    
-    color: #0078FF;
+    
+    .contMsg {
+      width: 100%;
+      .message-bubble {
+        text-align: center;
+      }
+    }
+    .footerMsg {
+      display: flex;
+      font-size: 0.8rem;
+      align-items: flex-end;
+      .read-icon {
+        color: #0078ff;
+      }
+
+      .unread-icon {
+        color: #d7d7d7;
+      }
+    }
   }
-  
-  .unread-icon {
- 
-    color: #d7d7d7;
+  &.received{
+    align-items: flex-start;
   }
-  
 }
-  

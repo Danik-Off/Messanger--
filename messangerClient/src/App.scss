@@ -1,32 +1,44 @@
-/* Body Styles */
-body{
+:-webkit-full-screen-ancestor {
+    display: none;
+}
+
+/* Скрыть полосу статуса в полноэкранном режиме */
+body:-webkit-full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+body {
     margin: 0;
     padding: 0;
-    max-width: 1280px;
-
-    margin: auto;
-    
+   
+      
 }
 
 /* Container Styles */
 .container {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1280px;
     height: 100vh;
-    max-height: 720px;
-   
-    .page-container{
-        display: flex;
-        height: 100%;
-    }
 }
 
 
-/* Content Styles */
 .content {
     display: flex;
     flex: 1;
 }
 
-
+/* Медиазапрос для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        max-width: 100%; 
+        font-size: large;/* Максимальная ширина 100% для мобильных устройств */
+    }
+   
+}

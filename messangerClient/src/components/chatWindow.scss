@@ -1,26 +1,34 @@
-
-/* Chat Window Styles */
 .chat-window {
-    flex: 1;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     border: 1px solid black;
+    width: 100%;
+    height: 100vh;
+    /* Учесть границы в расчете размеров элементов */
+    box-sizing: border-box;
 }
 
 .chat-header {
-    background-color: #009688; /* Teal */
+    display: flex;
+    background-color: #009688;
     color: #fff;
-    padding: 10px 20px;
+   padding: 1rem;
 }
 
 .chat-header h2 {
     margin: 0;
+    margin-left: 1rem;
 }
 
 .chat-messages {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    
+  
+    /* Изменим height на max-height для более гибкого управления */
+    max-height: 100%; /* Примерное значение, подберите под свои нужды */
+
+    /* Управление прокруткой */
+    overflow-x: hidden;
 }

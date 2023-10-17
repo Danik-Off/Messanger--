@@ -1,34 +1,43 @@
-.left-menu{
+.left-menu {
     position: absolute;
     background-color: #009688;
     display: flex;
     left: 0;
     padding: 0;
     margin: 0;
-    height: 100%;
     width: 15rem;
     z-index: 99999;
     flex-direction: column;
     align-items: center;
 
-    .back{
-        width: 100%;
+    /* Учесть границы в расчете размеров элементов */
+    box-sizing: border-box;
+
+    .back {
         text-align: start;
     }
-    hr{
-        width: 100%;
+
+    hr {
+        /* Либо добавьте стили, либо оставьте это свойство по умолчанию */
     }
-    header{
-    height: fit-content;
-    }
-    ul{
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    footer{
+
+    header {
         height: fit-content;
-        width: 100%;
+    }
+
+    ul {
+        height: 100%;
+        /* Уберите margin и padding, оставьте значения по умолчанию */
+    }
+
+    footer {
+        height: fit-content;
+        /* Уберите width, оставьте значение по умолчанию */
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .left-menu {
+        display: none;
     }
 }

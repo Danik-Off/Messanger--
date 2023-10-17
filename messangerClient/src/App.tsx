@@ -7,7 +7,7 @@ import {
 import ChatPage from "./pages/chat-page";
 import ErrorPage from "./pages/error-page";
 import SettingsPage from "./pages/settings-page";
-import LeftMainMenu from "./components/leftMainMenu";
+
 function App() {
 
   const router = createBrowserRouter([
@@ -21,13 +21,14 @@ function App() {
       element: <SettingsPage />,
     },
   ]);
-
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  }
+  
   return (
     <div className="container">
       <Header></Header>
-     
       <div className="page-container">
-      <LeftMainMenu></LeftMainMenu>
       <RouterProvider router={router} />
       </div>
     </div>

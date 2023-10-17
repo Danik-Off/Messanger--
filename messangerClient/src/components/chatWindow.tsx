@@ -5,6 +5,7 @@ import ItemMsg from "./itemMsg";
 import MessageInput from "./messageInput";
 import { useEffect, useRef } from "react";
 import { fetchMsgs, selectMsgs, selectMsgsState } from "../features/msgs/msgsSlice";
+import LeftNavigation from "./leftMenu";
 
 
 function ChatWindow() {
@@ -31,8 +32,11 @@ function ChatWindow() {
   }
  
   return (
+    <>
+    <LeftNavigation></LeftNavigation>
     <div className="chat-window">
       <div className="chat-header">
+      <button>☰</button>
         <h2>{actualDialog?.title}</h2>
       </div>
       <div className="chat-messages">
@@ -51,6 +55,7 @@ function ChatWindow() {
       </div>
       <MessageInput></MessageInput>
     </div>
+    </>
   );
 }
 

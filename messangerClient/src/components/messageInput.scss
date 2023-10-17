@@ -20,14 +20,14 @@
   
     #message-text {
       border: none;
-      flex-grow: 1;
+    width: 100%;
+    width: 100%;
       padding:0  10px 0;
 
       font-size: 16px;
       outline: none;
       background-color: transparent; /* Прозрачный фон */
       color: #fff; /* Белый текст */
-      border: 1px solid transparent; /* Убираем рамку */
       transition: border-color 0.3s; /* Анимация изменения цвета рамки */
     }
   
@@ -55,4 +55,5 @@
       background-color: #00796b;
     }
   }
+
   

@@ -39,14 +39,15 @@ function MessageTimestamp({ dateTime }: { dateTime: string }) {
 function ItemMsg({ id, from, text, dateTime, isRead }: Message) {
   return (
     <div className={`message ${from === 0 ? "" : "received"}`}>
+    <div className="container" >
       <div className="contMsg">
       <MessageBubble text={text} />
       </div>
       <div className="footerMsg">
-        <MessageStatus isRead={isRead} />
-
         <MessageTimestamp dateTime={dateTime} />
+        <MessageStatus isRead={isRead} />
       </div>
+    </div>
     </div>
   );
 }
