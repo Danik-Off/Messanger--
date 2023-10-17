@@ -18,9 +18,27 @@ export const fetchMsgs = createAsyncThunk(
     }
   }
 );
+interface msgPayload{
+  peer_id:number;
+  text:string;
+}
+
+export const sendMsg = createAsyncThunk(
+  "msgs/sendMsg", // Убедитесь, что имя уникально и отражает операцию
+  async (data: msgPayload) => {
+    try {
+      const formData = new FormData();
+      formData.append("text",data.text);
+      const response = await axios.post(GetMsgsUrl(data.peer_id),formData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 interface MsgState {
-  loadingStatus: "idle" | "loading" | "failed";
+  loadingStatus: "idle" | "loading" | "failed" | "send";
   error: any;
 }
 
@@ -43,13 +61,20 @@ export const msgsSlice = createSlice({
       })
       .addCase(fetchMsgs.fulfilled, (state, action) => {
         msgsAdapter.setAll(state, action.payload);
-        
         state.loadingStatus = "idle";
       })
       .addCase(fetchMsgs.rejected, (state, action) => {
         state.loadingStatus = "failed";
         state.error = action.error.message;
-      });
+      })
+      .addCase(sendMsg.pending, (state) => {
+        state.loadingStatus = "send";
+      })
+      .addCase(sendMsg.fulfilled, (state,action)=>{
+       console.log(action);
+        msgsAdapter.addMany(state, action.payload);
+        state.loadingStatus = "idle";
+      })
   },
 });
 

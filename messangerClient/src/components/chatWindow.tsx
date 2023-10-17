@@ -3,8 +3,8 @@ import { selectActiveDialog, selectDialogsState, setActiveDialogPeer } from "../
 import "./chatWindow.scss";
 import ItemMsg from "./itemMsg";
 import MessageInput from "./messageInput";
-import { useEffect } from "react";
-import { fetchMsgs, selectMsgs } from "../features/msgs/msgsSlice";
+import { useEffect, useRef } from "react";
+import { fetchMsgs, selectMsgs, selectMsgsState } from "../features/msgs/msgsSlice";
 
 
 function ChatWindow() {
@@ -12,17 +12,23 @@ function ChatWindow() {
   const dispatch =  useDispatch();
   const dialogSelected = useSelector(selectDialogsState) ;
   const actualDialog =  useSelector(selectActiveDialog);
+  const stateMsg =  useSelector(selectMsgsState);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const msgs = useSelector(selectMsgs) as Message[];
 
-  console.log(msgs)
+  console.log(msgs,stateMsg.loadingStatus)
   const peer_id = actualDialog?.peer_id??0;
+
 
   useEffect(()=>{
     dispatch(fetchMsgs(peer_id) as any);
-  },[actualDialog])
+    scrollToBottom();
+  },[msgs.length,actualDialog])
 
-
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
  
   return (
     <div className="chat-window">
@@ -30,7 +36,7 @@ function ChatWindow() {
         <h2>{actualDialog?.title}</h2>
       </div>
       <div className="chat-messages">
-        {[...msgs].map((msg, i) => (
+        {msgs.map((msg, i) => (
           <ItemMsg
             id={msg.id}
             text={msg.text}
@@ -40,6 +46,7 @@ function ChatWindow() {
             key={i}
           />
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <MessageInput></MessageInput>
     </div>

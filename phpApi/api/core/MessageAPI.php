@@ -67,7 +67,6 @@ class MessageAPI
     $ip = $_SERVER['REMOTE_ADDR'];
     $sql = "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
     SELECT 
-     
         `dialog_id`,        
          '".$text."'  ,         
         `user_id`,        
@@ -79,19 +78,19 @@ class MessageAPI
     $result = $this->db->queryWithoutFetch($sql);
 
    
-    $newMessage = =new Msg(
+    $newMessage =new Msg(
       0, // id
       $peer_id,
       $text, // text
-      $row["from_id"], // from
-      json_decode($row["attachment"])??[], // attachments (массив прикрепленных файлов)
-      $row["createdAt"], // createdAt
-      $row["updatedAt"],
-      $row["text"], // updatedAt
-      $row["updatedAt"]// isRead (флаг прочтения сообщения)
+      $user_id, // from
+      [], // attachments (массив прикрепленных файлов)
+      date("Y-m-d H:i:s"), // createdAt
+      date("Y-m-d H:i:s"), 
+      false// isRead (флаг прочтения сообщения)
     );
+   
     $this->messages[] = $newMessage;
-    return $newMessage;
+    return $this->messages;
   }
 
   public function updateMessage($id, $text)

@@ -7,14 +7,13 @@ function Dialogs() {
  
   const [selectedDialog, setSelectedDialog] = useState(2);
   const dispatch = useDispatch();
+  
   const dialogsState = useSelector(selectDialogsState)
   const dialogs = useSelector(selectDialogs) as Dialog[];
   const actualDialog =  useSelector(selectActiveDialog);
   
 
   
-
-
   useEffect(() => {
     dispatch(fetchDialogs() as any);
    
