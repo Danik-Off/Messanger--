@@ -13,8 +13,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/libs/tokenParse.php";
 $userID = ParseToken("");
 $userID = $userID["id"];
 
-$user = new User();
-$user->Get($userID);
+
 
 $db = new DataBase();
 
