@@ -1,9 +1,9 @@
-/* Dialog List Styles */
+@import '../Colors.scss';
 .dialogs {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    color: #333; /* Dark Gray */
+    color: $text-color; /* Dark Gray */
     padding: 5px 0 0 0 ;
     overflow-y: auto;
     flex-shrink: 0;
@@ -17,7 +17,7 @@
        
     }
     .active{
-            background: #333;
+            background: $secondary-color;
             color: white;
         }
     #search-form{

@@ -1,3 +1,4 @@
+@import '../Colors.scss';
 .chat-window {
     background-color: #fff;
     display: flex;
@@ -13,7 +14,10 @@ button{
     background-color: transparent;
     border: 0;
     height: 100%;
+    color: white;
 
+    font-size: 2rem;
+   
     
     margin: 0;
     padding: 0;
@@ -21,9 +25,28 @@ button{
 
 .chat-header {
     display: flex;
-    background-color:  opacify(opacify($main, 0.3), 0.3); 
+    background-color: opacify($primary-color, 0.3); 
     color: #fff;
-    padding: 1rem;
+    padding: 0 1rem;
+    height: 4rem;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo{
+        position: relative;
+     
+        z-index: 100;
+     
+       
+        padding: 0;
+
+        margin: 0;
+        img{
+           
+            margin: 0;
+            height: 2.6rem;
+        }
+    }
 }
 
 .chat-header h2 {

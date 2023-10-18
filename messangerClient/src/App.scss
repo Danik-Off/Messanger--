@@ -1,3 +1,4 @@
+@import 'Colors.scss';
 :-webkit-full-screen-ancestor {
   display: none;
 }
@@ -17,6 +18,7 @@ body {
   margin: 0;
   padding: 0;
     overflow: hidden;
+    background-color: $primary-color;
 }
 
 /* Container Styles */

@@ -1,9 +1,5 @@
 import "./itemMsg.scss";
 
-import React from "react";
-
-import "./itemMsg.scss";
-
 function MessageBubble({ text }: { text: string }) {
   return <div className="message-bubble">{text}</div>;
 }

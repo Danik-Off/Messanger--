@@ -6,7 +6,7 @@ import MessageInput from "./messageInput";
 import { useEffect, useRef } from "react";
 import { fetchMsgs, selectMsgs, selectMsgsState } from "../features/msgs/msgsSlice";
 import LeftNavigation from "./leftMenu";
-
+import logo from "../assets/logo.png";
 
 function ChatWindow() {
   
@@ -39,6 +39,7 @@ function ChatWindow() {
       <div className="chat-header">
         <button>☰</button>
         <h2>{actualDialog?.title}</h2>
+       <a  className="logo" href="https://lspu-lipetsk.ru/"> <img src={logo}></img></a>
       </div>
       <div className="chat-messages">
         {msgs.map((msg, i) => (

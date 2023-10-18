@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./dialogs.scss";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDialogs, selectActiveDialog, selectDialogs, selectDialogsState, setActiveDialogPeer  } from "../features/dialogs/dialogSlice";
+import ItemDialog from "./itemDialog";
 
 function Dialogs() {
  
@@ -10,7 +11,7 @@ function Dialogs() {
   
   const dialogsState = useSelector(selectDialogsState)
   const dialogs = useSelector(selectDialogs) as Dialog[];
-  const actualDialog =  useSelector(selectActiveDialog);
+  
   
 
   
@@ -27,8 +28,7 @@ function Dialogs() {
   function setActiveDialog(id: number) {
     setSelectedDialog(id);
     dispatch( setActiveDialogPeer(id));
- 
-   
+
   }
 
   return (
@@ -48,15 +48,11 @@ function Dialogs() {
      
       { 
      dialogs.map((dialog: Dialog) => (
-        <div
-         key={dialog.peer_id}
-          className={
-            "dialog " + ((dialog.peer_id === selectedDialog) ? "active" : "")
-          }
-          onClick={() => setActiveDialog(dialog.peer_id)}
-        >
-          {dialog.title}
-        </div>
+       <ItemDialog
+        title={dialog.title}
+        peer_id={dialog.peer_id}
+        onClick={()=>{setActiveDialog(dialog.peer_id)}}
+        />
       )) }
     </div>
   );

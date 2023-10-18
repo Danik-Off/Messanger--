@@ -4,7 +4,7 @@
     height: 100px; /* Высота аватарки */
     border-radius: 50%; /* Задаем круглую форму */
     overflow: hidden; /* Обрезаем изображение, если оно выходит за границы круга */
-    border: 2px solid #007BFF; /* Опциональная рамка */
+    border: 2px solid $secondary-color; /* Опциональная рамка */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Опциональная тень */
     img {
         width: 100%;

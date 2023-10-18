@@ -3,11 +3,10 @@ import type { RootState } from '../../stores/store'
 
 
 interface CounterState {
-  value: number
+  value: boolean
 }
-
 const initialState: CounterState = {
-  value: 0,
+  value: false,
 }
 
 export const counterSlice = createSlice({
@@ -16,8 +15,8 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
 
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+    incrementByAmount: (state, action: PayloadAction<boolean>) => {
+      state.value = action.payload
     },
   },
 });
@@ -25,6 +24,6 @@ export const counterSlice = createSlice({
 
 export const { incrementByAmount } = counterSlice.actions
 
-export const selectCount = (state: RootState) => state.counter.value
+export const selectLeftMenu = (state: RootState) => state.counter.value
 
 export default counterSlice.reducer

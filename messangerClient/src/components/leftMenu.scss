@@ -1,25 +1,23 @@
+@import '../Colors.scss';
 .left-menu {
-    position: absolute;
-    background-color: opacify($main, 0.3);
-    display: flex;
-    padding: 0;
-    margin: 0;
-    width: 15rem;
-    height: 100%;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    z-index: 999;
-
+  position: relative;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid black;
+  width: 15rem;
+  height: 100vh;
   box-sizing: border-box;
+  z-index: 999;
+
 
   .back {
     text-align: start;
   }
 
   header {
-    height: fit-content;
+    padding: 1rem;
+    height: 2rem;
   }
   hr{
     width: 100%;
@@ -33,10 +31,36 @@
   footer {
     height: fit-content;
   }
+  button{
+    display: flex;
+    height: 2rem;
+    cursor: pointer;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+
+    img{
+        height: 100%;
+        max-height: 2rem;
+    }
+    span{
+        padding-left:10px;
+        font-size: 1.2rem;
+    }
+    &:hover{
+        background-color: $secondary-color-b;
+       
+    }
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .left-menu {
-    // display: none;
+     display: none;
+     height: 100%;
+    position: absolute;
   }
 }
