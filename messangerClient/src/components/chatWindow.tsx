@@ -18,7 +18,7 @@ function ChatWindow() {
 
   const msgs = useSelector(selectMsgs) as Message[];
 
-  console.log(msgs,stateMsg.loadingStatus)
+  // console.log(msgs,stateMsg.loadingStatus)
   const peer_id = actualDialog?.peer_id??0;
 
 
