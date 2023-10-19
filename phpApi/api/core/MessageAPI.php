@@ -99,6 +99,10 @@ class MessageAPI
     );
 
     $this->messages[] = $newMessage;
+    // отправляем в ws
+    const data = ['type'=>'msg', $newMessage]
+    sendPostRequest($data,$user_id);
+
     return $this->messages;
   }
 

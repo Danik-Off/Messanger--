@@ -2,6 +2,7 @@
 header("Content-Type: application/json; charset=utf-8");
 
 include_once "objects/dialog.php";
+include_once "sendToWS.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/configs/user.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/libs/DataBase.php";
 
