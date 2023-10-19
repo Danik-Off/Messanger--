@@ -2,9 +2,12 @@
 // header("Content-Type: application/json; charset=utf-8");
 
 include_once "objects/dialog.php";
+include_once "objects/msg.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/configs/user.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/libs/DataBase.php";
-include_once "objects/msg.php";
+include_once "sendToWS.php";
+
+
 $user = new User();
 class MessageAPI
 {
@@ -100,8 +103,8 @@ class MessageAPI
 
     $this->messages[] = $newMessage;
     // отправляем в ws
-    const data = ['type'=>'msg', $newMessage]
-    sendPostRequest($data,$user_id);
+    $data = ['type'=>'msg', $newMessage];
+    sendPostRequest($data,$peer_id);
 
     return $this->messages;
   }

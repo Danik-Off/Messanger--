@@ -56,7 +56,12 @@ const initialState = msgsAdapter.getInitialState({
 export const msgsSlice = createSlice({
   name: "msgs",
   initialState,
-  reducers: {},
+  reducers: {
+    messageAdded: (state, action) => {
+      msgsAdapter.addMany(state, action.payload);
+      state.loadingStatus = "idle";
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMsgs.pending, (state) => {
@@ -75,13 +80,12 @@ export const msgsSlice = createSlice({
       })
       .addCase(sendMsg.fulfilled, (state, action) => {
         console.log(action);
-        msgsAdapter.addMany(state, action.payload);
-        state.loadingStatus = "idle";
+      
       });
   },
 });
 
-export const {} = msgsSlice.actions;
+export const {messageAdded} = msgsSlice.actions;
 
 export const selectMsgsState = (state: any) => state.msgs;
 
