@@ -23,7 +23,7 @@
     width: 100%;
   }
   ul {
-    height: 100%;
+    height: -webkit-fill-available;
     padding: 0;
     margin: 0;
   }
@@ -33,7 +33,7 @@
   }
   button{
     display: flex;
-    height: 2rem;
+    height: 3rem;
     cursor: pointer;
     flex-direction: row;
     align-content: center;
@@ -55,12 +55,21 @@
        
     }
   }
+  .hiddeBtn{
+    display: none;
+  }
+  
 }
 
 @media only screen and (max-width: 600px) {
   .left-menu {
      display: none;
-     height: 100%;
-    position: absolute;
+     position: absolute;
+    height: 100%;
+    .hiddeBtn{
+      display: block;
+    }
+    
   }
+  
 }

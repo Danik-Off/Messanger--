@@ -3,6 +3,7 @@ import { WebSocketServer } from "ws";
 import http from "http";
 import bodyParser from "body-parser";
 import axios from "axios";
+import { connect } from "http2";
 
 const app = express();
 const server = http.createServer(app);
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 
 
 // Create a map to store authorized users' WebSocket sessions
-const authorizedSessions = new Map();
+const authorizedSessions = [];
 
 // Middleware for validating the token when connecting via WebSocket
 wss.on("connection", (ws, req) => {
@@ -21,11 +22,15 @@ wss.on("connection", (ws, req) => {
 
   getUserData(token)
     .then((response) => {
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
       user_id = response.data.id; // Assign user_id here
 
       if (user_id) {
-        authorizedSessions.set(+user_id, ws);
+        const lastIndex =  authorizedSessions.length-1;
+        if(lastIndex>=0)
+        authorizedSessions.push({id:authorizedSessions[lastIndex].id+1,user_id:user_id,ws:ws});
+        else
+        authorizedSessions.push({id:1,user_id:user_id,ws:ws});
         ws.send("user_id: " + user_id);
       } else {
         ws.close();
@@ -51,8 +56,8 @@ wss.on("connection", (ws, req) => {
   });
 
   ws.on("close", () => {
-    if (user_id) {
-      authorizedSessions.delete(user_id);
+    if (id) {
+      authorizedSessions = authorizedSessions.filter((connection)=>connection!=user_id);
     }
   });
 });
@@ -63,8 +68,13 @@ app.post("/api/data", (req, res) => {
   const { secret_key, data, user_id } = req.body;
   console.log("Response:", user_id);
   if (secret_key_up === secret_key) {
-    const ws = authorizedSessions.get(+user_id);
-    ws.send(JSON.stringify(data));
+
+    const userDevices = authorizedSessions.filter((connection)=>connection.user_id==user_id);
+    for(const userDevice of userDevices){
+      const ws =  userDevice.ws;
+      console.log(userDevice);
+      ws.send(JSON.stringify(data))
+    }
     res.status(200).send("Data sent over WebSocket");
   }
 });

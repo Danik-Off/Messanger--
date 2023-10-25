@@ -3,22 +3,31 @@ import { selectActiveDialog, selectDialogsState, setActiveDialogPeer } from "../
 import "./chatWindow.scss";
 import ItemMsg from "./itemMsg";
 import MessageInput from "./messageInput";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchMsgs, selectMsgs, selectMsgsState } from "../features/msgs/msgsSlice";
 import LeftNavigation from "./leftMenu";
 import logo from "../assets/logo.png";
+import React from "react";
 
+const ThemeContext = React.createContext(false);
 function ChatWindow() {
   
   const dispatch =  useDispatch();
-  const dialogSelected = useSelector(selectDialogsState);
   const actualDialog =  useSelector(selectActiveDialog);
-  const stateMsg =  useSelector(selectMsgsState);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const msgs = useSelector(selectMsgs) as Message[];
 
-  // console.log(msgs,stateMsg.loadingStatus)
+  
+  let VLB = false; 
+  if(window.innerWidth>=600)
+  {
+   VLB = true;
+  }
+  const [visibleLeftMenu,setVisibleLeftMenu] = useState(VLB);
+
+
+
   const peer_id = actualDialog?.peer_id??0;
 
 
@@ -31,13 +40,18 @@ function ChatWindow() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+ const shoOrHide =  ()=>{setVisibleLeftMenu(!visibleLeftMenu)}
+
   const newHeight = window.innerHeight ;
   return (
     <>
-    <LeftNavigation></LeftNavigation>
+     <div className="left-menu" style={{display:(visibleLeftMenu)?"flex":"none"}}>
+        <LeftNavigation onClickClose={shoOrHide}></LeftNavigation>
+      </div>
+    
     <div className="chat-window" style={{height:newHeight+`px`}}>
       <div className="chat-header">
-        <button>☰</button>
+        <button onClick={shoOrHide}>☰</button>
         <h2>{actualDialog?.title}</h2>
        <a  className="logo" href="https://lspu-lipetsk.ru/"> <img src={logo}></img></a>
       </div>

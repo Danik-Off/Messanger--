@@ -31,7 +31,9 @@ button{
     height: 4rem;
     justify-content: space-between;
     align-items: center;
-
+    button{
+        display: none;
+    }
     .logo{
         position: relative;
      
@@ -62,3 +64,13 @@ button{
     overflow-x: hidden;
     height: 100%;
 }
+@media only screen and (max-width: 600px) {
+    .chat-header {
+       
+        button{
+            display: block;
+        }
+    }
+    
+  }
+  

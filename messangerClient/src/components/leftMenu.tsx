@@ -1,30 +1,34 @@
-
-import { useSelector } from "react-redux";
-import { selectLeftMenu } from "../features/counter/counterSlice";
+import { useContext, useState } from "react";
 import Dialogs from "./dialogs";
-import "./leftMenu.scss"
+import "./leftMenu.scss";
 
 const leftMenuShow = false;
+interface ILeftMenu{
+onClickClose:()=>void
+}
 
-function LeftNavigation() {
+
+function LeftNavigation(props:ILeftMenu) {
+  function onShowOrHide() {
+    // setShow(!isShow);
+  }
   return (
-    <div className="left-menu" style={(leftMenuShow)?{display:"block"}:undefined}>
-     
+    <>
       <header>
         {/* <Avatar></Avatar> */}
         <label>Фамилия Имя</label>
       </header>
-      
+
       <ul>
-      <Dialogs></Dialogs>
+        <Dialogs></Dialogs>
       </ul>
-     
+
       <footer>
         {/* <ButtonWithImg img="/src/assets/1630709.svg" text="Настройки"/> */}
-        <button>Назад</button>
+        <button className="hiddeBtn" onClick={()=>props.onClickClose()}>Скрыть</button>
         {/* <label>v:0.0.1</label> */}
       </footer>
-    </div>
+    </>
   );
 }
 
