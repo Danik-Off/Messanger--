@@ -49,8 +49,13 @@
     font-size: 16px;
     transition: background-color 0.3s; /* Анимация изменения цвета кнопки */
   }
-
+  
   #send-button:hover {
     background-color: #00796b;
   }
+ 
+}
+.attachments{
+  display: flex;
+  flex-direction: row;
 }
