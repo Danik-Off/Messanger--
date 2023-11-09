@@ -6,9 +6,11 @@ import axios from "axios"; // Import Axios or use your preferred HTTP library
 function AttachmentItem({
   selectedFile,
   onRemoveAttachment,
+  onLoad,
 }: {
   selectedFile: File | null;
   onRemoveAttachment: () => void;
+  onLoad: (file: any) => void;
 }) {
   const [progress, setProgress] = useState(0);
 
@@ -22,7 +24,11 @@ function AttachmentItem({
       return fileName;
     }
 
-    const fileNameWithoutExtension = fileName.slice(0, fileName.lastIndexOf("."));
+    const fileNameWithoutExtension = fileName.slice(
+      0,
+      fileName.lastIndexOf(".")
+    );
+
     const extension = fileName.slice(fileName.lastIndexOf("."));
 
     if (fileNameWithoutExtension.length > maxLength) {
@@ -35,32 +41,31 @@ function AttachmentItem({
   useEffect(() => {
     // Check if a selected file exists and initiate the upload process
     if (selectedFile) {
-      
       if (selectedFile) {
         const formData = new FormData();
-        formData.append('userfile', selectedFile);
-  
+        formData.append("userfile", selectedFile);
+
         const xhr = new XMLHttpRequest();
-  
+
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable) {
             const progress = (event.loaded / event.total) * 100;
-          setProgress(progress);
+            setProgress(progress);
           }
         };
-  
-        xhr.open('POST', '/api/upload.php', true);
-  
+
+        xhr.open("POST", "/api/upload.php", true);
+
         xhr.onload = () => {
           if (xhr.status === 200) {
-            // Handle the successful response here
-            console.log('File uploaded successfully');
+            onLoad(xhr.responseText);
+            console.log(xhr.responseText);
           } else {
             // Handle the error response here
-            console.error('File upload failed');
+            console.error("File upload failed");
           }
         };
-  
+
         xhr.send(formData);
       }
     }
@@ -82,11 +87,7 @@ function AttachmentItem({
       } else {
         return (
           <>
-            <img
-              src={fileImg}
-              alt="File Icon"
-              className="file-icon"
-            />
+            <img src={fileImg} alt="File Icon" className="file-icon" />
             <span className="title">
               {truncateFileNameWithExtension(selectedFile.name)}
             </span>

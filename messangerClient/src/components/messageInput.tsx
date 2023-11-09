@@ -11,6 +11,12 @@ function MessageInput() {
   const actualDialog = useSelector(selectActiveDialog);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const dispatch = useDispatch();
+  const [loadedFiles, setLoadedFiles] = useState<any>([]);
+
+  const attachment = () => {
+    const attachments = [...loadedFiles];
+    return JSON.stringify(attachments);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextVal(event.target.value);
@@ -25,16 +31,23 @@ function MessageInput() {
   };
 
   const removeAttachment = (fileToRemove: File) => {
+    console.log(fileToRemove.name);
+    
     const updatedFiles = selectedFiles.filter((file) => file !== fileToRemove);
+  
+    setLoadedFiles(loadedFiles.filter((file:any)=>file.name !== fileToRemove.name));
     setSelectedFiles(updatedFiles);
   };
 
   const clickSendMsg = () => {
-    if (textVal) {
+    console.log(attachment());
+
+    if (textVal && selectedFiles.length == loadedFiles.length) {
       dispatch(
         sendMsg({
           peer_id: actualDialog?.peer_id,
           msg: { text: textVal } as Message,
+          attachments: attachment as any,
         }) as any
       );
       setTextVal("");
@@ -55,6 +68,9 @@ function MessageInput() {
             key={index}
             selectedFile={file}
             onRemoveAttachment={() => removeAttachment(file)}
+            onLoad={(file) => {
+              setLoadedFiles([...loadedFiles, file]);
+            }}
           />
         ))}
       </div>

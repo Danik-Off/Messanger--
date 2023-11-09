@@ -22,6 +22,11 @@ function App() {
       errorElement: <ErrorPage />,
     },
     {
+      path: "/settings",
+      element: <SettingsPage/>,
+      errorElement: <ErrorPage />,
+    },
+    {
       path: "contacts/:contactId",
       element: <SettingsPage />,
     },
@@ -31,9 +36,9 @@ function App() {
 
  const token = localStorage.getItem("token");
  
- if(!token)
+ if(token)
  {
-router.navigate("/login");
+router.navigate("/settings");
  }
  else{
   router.navigate("/msgs");
