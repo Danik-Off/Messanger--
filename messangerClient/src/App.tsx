@@ -5,15 +5,20 @@ import ChatPage from "./pages/chat-page";
 import ErrorPage from "./pages/error-page";
 import SettingsPage from "./pages/settings-page";
 import startWs from "./ws/client";
-import FileUploadWithProgressBar from "./pages/testUpload";
+import LoginPage from "./pages/login-page";
 
 
 function App() {
   startWs();
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <ChatPage />,
+      path: "/msgs",
+      element: <ChatPage/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/login",
+      element: < LoginPage/>,
       errorElement: <ErrorPage />,
     },
     {
@@ -24,7 +29,15 @@ function App() {
   
    
 
+ const token = localStorage.getItem("token");
  
+ if(!token)
+ {
+router.navigate("/login");
+ }
+ else{
+  router.navigate("/msgs");
+ }
 
  
  
