@@ -1,61 +1,63 @@
 @import "../Colors.scss";
 .message-input {
-  display: flex;
-  align-items: center;
-  background-color: opacify($primary-color, 0.3);
-  border-top: 1px solid black;
-
-  #file-input {
-    display: none;
-  }
-
-  #file-label {
-    position: relative;
-    height: 2rem;
-
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    background-color: $primary-color;
+    border-top: 1px solid black;
     img {
       height: 100%;
     }
-  }
-
-  #message-text {
-    border: none;
-    width: 100%;
-    width: 100%;
-    padding: 0 10px 0;
-
-    font-size: 16px;
-    outline: none;
-    background-color: transparent; /* Прозрачный фон */
-    color: #fff; /* Белый текст */
-    transition: border-color 0.3s; /* Анимация изменения цвета рамки */
-  }
-
-  #message-text::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Цвет плейсхолдера с прозрачностью */
-  }
-
-  #message-text:focus {
-    border-bottom: 1px solid #00796b;
-  }
-
-  #send-button {
-    background-color: opacify($primary-color, 0.3);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s; /* Анимация изменения цвета кнопки */
-  }
+    #file-input {
+      display: none;
+    }
   
-  #send-button:hover {
-    background-color: #00796b;
+    #file-label {
+      position: relative;
+      height: 100%;
+  
+      img {
+        height: 100%;
+        
+      }
+    }
+  
+    #message-text {
+      border: none;
+      width: 100%;
+
+      padding:0   10px 0;
+
+      font-size: 16px;
+      outline: none;
+      background-color: transparent; /* Прозрачный фон */
+      color: #fff; /* Белый текст */
+      transition: border-color 0.3s; /* Анимация изменения цвета рамки */
+    }
+  
+    #message-text::placeholder {
+      color: rgba(255, 255, 255, 0.7); /* Цвет плейсхолдера с прозрачностью */
+    }
+  
+    #message-text:focus {
+      border-bottom: 1px solid gra;
+     
+    }
+  
+    #send-button {
+     max-height: 2REM;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin-right: 1rem;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s; /* Анимация изменения цвета кнопки */
+    }
+  
+    #send-button:hover {
+      background-color: #00796b;
+    }
   }
- 
-}
-.attachments{
-  display: flex;
-  flex-direction: row;
-}
+
+  

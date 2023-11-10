@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./messageInput.scss";
-import clipImg from "../assets/PaperClip_4895.png";
+import clipImg from "../assets/icons8-файл-100.png";
+import sendImg from "../assets/icons8-отправить-100.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { sendMsg } from "../features/msgs/msgsSlice";
 import { selectActiveDialog } from "../features/dialogs/dialogSlice";
@@ -92,7 +94,7 @@ function MessageInput() {
           accept="image/*, application/pdf"
         />
         <button id="send-button" onClick={clickSendMsg}>
-          Send
+         <img src={sendImg}></img>
         </button>
       </div>
     </>

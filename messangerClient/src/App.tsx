@@ -36,9 +36,9 @@ function App() {
 
  const token = localStorage.getItem("token");
  
- if(token)
+ if(!token)
  {
-router.navigate("/settings");
+router.navigate("/login");
  }
  else{
   router.navigate("/msgs");

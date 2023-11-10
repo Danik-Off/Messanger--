@@ -53,6 +53,7 @@ function ChatWindow() {
         className="left-menu"
         style={{ display: visibleLeftMenu ? "flex" : "none" }}
       >
+         <div className="back" onClick={shoOrHide}></div>
         <LeftNavigation onClickClose={shoOrHide}></LeftNavigation>
       </div>
 

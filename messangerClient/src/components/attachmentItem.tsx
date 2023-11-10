@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./attachmentItem.scss";
 import fileImg from "../assets/file.png";
-import axios from "axios"; // Import Axios or use your preferred HTTP library
+
 
 function AttachmentItem({
   selectedFile,
