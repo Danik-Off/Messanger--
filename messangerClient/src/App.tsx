@@ -36,7 +36,7 @@ function App() {
 
  const token = localStorage.getItem("token");
  
- if(!token)
+ if(token)
  {
 router.navigate("/login");
  }

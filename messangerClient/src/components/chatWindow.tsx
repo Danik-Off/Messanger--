@@ -57,7 +57,7 @@ function ChatWindow() {
         <LeftNavigation onClickClose={shoOrHide}></LeftNavigation>
       </div>
 
-      <div className="chat-window" style={{ height: newHeight + `px` }}>
+      <div className="chat-window" >
         <div className="chat-header">
           <button onClick={shoOrHide}>☰</button>
           <h2>{actualDialog?.title}</h2>
