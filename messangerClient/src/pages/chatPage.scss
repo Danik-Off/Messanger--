@@ -1,13 +1,15 @@
 @import '../Colors.scss';
+.chat-page{
+    display:flex;
+}
 .chat-window {
-    background-color: #fff;
+   
     display: flex;
     flex-direction: column;
   
     width: 100%;
     height: 100vh;
-
-   
+    
 }
 
 button{

@@ -7,4 +7,5 @@ export const GetDialogsUrl = host + "dialogs.php?token="+token+"";
 
 export const GetMsgsUrl =(peer_id:number) => host + "messages.php?peer_id="+peer_id+"&token="+token;
 
+export const GetUSer = (id:number = 0)=>host + "user.get.php?id="+id+"&token="+token;
 

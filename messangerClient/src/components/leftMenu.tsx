@@ -1,36 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dialogs from "./dialogs";
 import "./leftMenu.scss";
 import settingsImg from "../assets/icons8-настройки-50.png";
+import axios from "axios";
+import { GetUSer } from "../routes/routes";
+import router from "../routes/router";
 
 
 interface ILeftMenu {
   onClickClose: () => void;
 }
 
-// Assuming you have an Avatar component
-const Avatar = () => (
-  <div className="avatar">
-    {/* Your avatar content or image */}
-    <img src="path/to/avatar.jpg" alt="Avatar" />
-  </div>
-);
+
 
 function LeftNavigation(props: ILeftMenu) {
+ const [user,setUser] = useState<User>();
+  useEffect(()=>{
+    axios.get(GetUSer()).then((response)=>{
+      console.log(response.data);
+      setUser(response.data)
+     });
+  },[])
+  
   return (
     <div className="navigation">
  
       <header className="navigation-header">
       <div className="header-buttons">
-        {/* <button className="hide-btn" onClick={props.onClickClose}>
-         <img src={backImg}></img>
-        </button> */}
         </div>
         <div className="profile-info">
-          {/* <Avatar  s/> */}
+      
           <div className="user-details">
-            <label className="user-name">Фамилия Имя</label>
-            <label className="user-role">Роль пользователя</label>
+          <label className="user-role">Вы вошли как: {user?.type}</label>
+            <label className="user-name">{user?.fio}</label>
+           
           </div>
         </div>
       </header>
@@ -41,7 +44,7 @@ function LeftNavigation(props: ILeftMenu) {
 
       <footer className="navigation-footer">
         
-      <button><img src={settingsImg} onClick={()=>{}} />Настройки</button>
+      <button onClick={()=>{router.navigate("/settings")}}><img src={settingsImg}  />Настройки</button>
         <label>v:0.0.1</label>
        
       </footer>
