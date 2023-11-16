@@ -40,12 +40,10 @@ function uploadFile($file, $user_id)
 
     switch ($attachmentType) {
       case "photo":
-        $attachment  =new Photo($file["name"], "/uploads/attachments/" . $safeFilename);
-        $a-> addAttachment();
+        $a-> addAttachment(new Photo($file["name"], "/uploads/attachments/" . $safeFilename));
         break;
       case "file":
-        $attachment  =new File($file["name"], "/uploads/attachments/" . $safeFilename);
-        $a->addAttachment($attachment);
+        $a->addAttachment(new File($file["name"], "/uploads/attachments/" . $safeFilename));
         break;
     }
    

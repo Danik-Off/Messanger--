@@ -44,7 +44,7 @@ function MessageInput() {
   const clickSendMsg = () => {
     console.log(attachment());
 
-    if (textVal && selectedFiles.length == loadedFiles.length) {
+    if ((textVal && selectedFiles.length == loadedFiles.length)||attachment) {
       dispatch(
         sendMsg({
           peer_id: actualDialog?.peer_id,

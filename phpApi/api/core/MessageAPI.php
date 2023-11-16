@@ -66,9 +66,9 @@ class MessageAPI
     return null;
   }
 
-  public function createMessage($peer_id, $user_id, $text)
+  public function createMessage($peer_id, $user_id, $text,$attachment=[])
   {
-    //,$attachment
+    $jsonAttachment = json_encode( $attachment);
     $ip = $_SERVER["REMOTE_ADDR"];
     $sql =
       "INSERT INTO `msgs`  (`dialog_id`, `text`, `from_id`, `attachment`, `isRead`, `ip`)
@@ -77,8 +77,8 @@ class MessageAPI
          '" .
       $text .
       "'  ,         
-        `user_id`,        
-        '[]',          
+        ".$user_id.",        
+        '".$jsonAttachment."',          
         0,          
         '" .
       $ip .
