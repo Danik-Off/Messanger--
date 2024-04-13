@@ -1,11 +1,11 @@
 import "./App.scss";
 import "./Colors.scss";
 import {RouterProvider } from "react-router-dom";
-import startWs from "./ws/client";
+// import startWs from "./ws/client";
 import router from "./routes/router";
 
-function App() {
-  startWs();
+function App() { 
+  // startWs();//Функционал сокеты - не реализовано
 
   const token = localStorage.getItem("token");
 
