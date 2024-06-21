@@ -3,8 +3,7 @@ class DataBase{
       function __construct()
       {   
          include_once($_SERVER['DOCUMENT_ROOT'] .'/includes/sql/mysql_config.php');
-          //  $this->link = mysqli_connect(dbhost,dbuname,dbpass,dbname);    
-           $this->link = mysqli_connect(dbhost,"lamabomn_ll_test","lspu-test22","lamabomn_ll_test");    
+           $this->link = mysqli_connect(dbhost,dbuname,dbpass,dbname);    
            mysqli_set_charset($this->link, "utf8");
       }
     function query($sql)

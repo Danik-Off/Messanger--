@@ -17,7 +17,6 @@ export const fetchMsgs = createAsyncThunk(
 interface msgPayload {
     peer_id: number | undefined;
     msg: Message;
-    attachments: string;
 }
 
 export const sendMsg = createAsyncThunk(
@@ -28,8 +27,10 @@ export const sendMsg = createAsyncThunk(
             try {
                 const formData = new FormData();
                 formData.append('text', data.msg.text);
-                formData.append('attachments', data.attachments);
+                formData.append('attachments', data.msg.attachments);
+                console.log('DORASDASD', formData);
                 const response = await axios.post(GetMsgsUrl(data.peer_id), formData);
+
                 return response.data;
             } catch (error) {
                 throw error;

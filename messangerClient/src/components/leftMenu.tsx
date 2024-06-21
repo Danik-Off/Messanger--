@@ -44,7 +44,7 @@ function LeftNavigation(props: ILeftMenu) {
 
       <footer className="navigation-footer">
         
-      <button onClick={()=>{router.navigate("/settings")}}><img src={settingsImg}  />Настройки</button>
+      {/* <button onClick={()=>{router.navigate("/settings")}}><img src={settingsImg}  />Настройки</button> */}
         <label>v:0.0.1</label>
        
       </footer>

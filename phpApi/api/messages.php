@@ -40,7 +40,8 @@ switch ($requestMethod) {
       $newMessage = $api->createMessage(
         $_REQUEST["peer_id"],
         $userID,
-        $_POST["text"]
+        $_POST["text"],
+        $_POST["attachments"]
       );
 
       echo json_encode($newMessage);

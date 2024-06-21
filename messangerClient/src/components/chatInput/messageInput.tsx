@@ -4,7 +4,7 @@ import clipImg from '../../assets/icons8-файл-100.png';
 import sendImg from '../../assets/icons8-отправить-100.png';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { sendMsg } from '../../features/msgs/msgsSlice';
+import { messageAdded, sendMsg } from '../../features/msgs/msgsSlice';
 import { selectActiveDialog } from '../../features/dialogs/dialogSlice';
 import AttachmentItem from '../attachmentItem';
 
@@ -15,11 +15,6 @@ function MessageInput() {
     const dispatch = useDispatch();
     const [loadedFiles, setLoadedFiles] = useState<any>([]);
 
-    const getAttachments = () => {
-        const attachments = [...loadedFiles];
-        return JSON.stringify(attachments);
-    };
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTextVal(event.target.value);
     };
@@ -28,30 +23,29 @@ function MessageInput() {
         if (event.target.files) {
             const filesArray = Array.from(event.target.files);
             setSelectedFiles([...selectedFiles, ...filesArray]);
-            event.target.value = ''; // Reset the file input field to allow selecting the same files again
+            event.target.value = '';
         }
     };
 
     const removeAttachment = (fileToRemove: File) => {
-        console.log(fileToRemove.name);
-
         const updatedFiles = selectedFiles.filter((file) => file !== fileToRemove);
-
         setLoadedFiles(loadedFiles.filter((file: any) => file.name !== fileToRemove.name));
         setSelectedFiles(updatedFiles);
     };
 
     const clickSendMsg = () => {
-        
-
-        if ((textVal && selectedFiles.length == loadedFiles.length) || getAttachments()) {
-          
+        if ((textVal && selectedFiles.length == loadedFiles.length) || loadedFiles) {
             dispatch(
                 sendMsg({
                     peer_id: actualDialog?.peer_id,
-                    msg: { text: textVal } as Message,
-                    attachments: getAttachments() ,
+                    msg: { text: textVal, attachments: loadedFiles } as Message,
                 }) as any
+            );
+
+            dispatch(
+                messageAdded({
+                    msg: { text: textVal, attachments: loadedFiles, dateTime: Date.now().toString() } as Message,
+                })
             );
             setTextVal('');
         }
