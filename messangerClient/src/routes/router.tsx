@@ -6,7 +6,7 @@ import LoginPage from "../pages/login-page";
 
 const router = createBrowserRouter([
     {
-      path: "/msgs",
+      path: "/msg",
       element: <ChatPage/>,
       errorElement: <ErrorPage />,
     },

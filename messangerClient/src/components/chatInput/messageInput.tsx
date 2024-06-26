@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { messageAdded, sendMsg } from '../../features/msgs/msgsSlice';
 import { selectActiveDialog } from '../../features/dialogs/dialogSlice';
 import AttachmentItem from '../attachmentItem';
+import { Message } from '../../interfaces/msg';
 
 function MessageInput() {
     const [textVal, setTextVal] = useState('');
@@ -48,6 +49,7 @@ function MessageInput() {
                 })
             );
             setTextVal('');
+            setSelectedFiles([]);
         }
     };
 

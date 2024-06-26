@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { GetMsgsUrl } from '../../routes/routes';
+import { Message } from '../../interfaces/msg';
 
 export const fetchMsgs = createAsyncThunk(
     'msgs/fetchMsgs', // Убедитесь, что имя уникально и отражает операцию
@@ -14,6 +15,7 @@ export const fetchMsgs = createAsyncThunk(
         }
     }
 );
+
 interface msgPayload {
     peer_id: number | undefined;
     msg: Message;
@@ -27,7 +29,7 @@ export const sendMsg = createAsyncThunk(
             try {
                 const formData = new FormData();
                 formData.append('text', data.msg.text);
-                formData.append('attachments', data.msg.attachments);
+                formData.append('attachments', data.msg.attachments as string);
                 console.log('DORASDASD', formData);
                 const response = await axios.post(GetMsgsUrl(data.peer_id), formData);
 
@@ -78,7 +80,7 @@ export const msgsSlice = createSlice({
                 state.loadingStatus = 'send';
             })
             .addCase(sendMsg.fulfilled, (state, action) => {
-                console.log(action);
+                console.log(action,state);
             });
     },
 });

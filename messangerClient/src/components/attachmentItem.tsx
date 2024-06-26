@@ -14,6 +14,7 @@ function AttachmentItem({
 }) {
   const [progress, setProgress] = useState(0);
 
+
   const getFileExtension = (fileName: string) => {
     return fileName.split(".").pop()?.toLowerCase();
   };
@@ -42,6 +43,7 @@ function AttachmentItem({
     // Check if a selected file exists and initiate the upload process
     if (selectedFile) {
       if (selectedFile) {
+ 
         const formData = new FormData();
         formData.append("userfile", selectedFile);
 
@@ -110,6 +112,11 @@ function AttachmentItem({
       >
         <div style={{ width: `${progress}%` }} className="bar"></div>
       </div>
+      {progress === 100 && (
+        <div className="check-icon">
+          &#x2714; {/* Check or "tick" icon */}
+        </div>
+      )}
     </div>
   );
 }

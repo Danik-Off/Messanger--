@@ -36,12 +36,18 @@ switch ($requestMethod) {
     break;
 
   case "POST":
+    $attachmentJson = $_POST["attachments"];
+    $attachment = json_decode($attachmentJson, true);
+    if (!is_array($attachment)) {
+      $attachment = [];
+    }
     if (isset($_POST["text"])) {
       $newMessage = $api->createMessage(
         $_REQUEST["peer_id"],
         $userID,
         $_POST["text"],
-        $_POST["attachments"]
+        $attachment
+
       );
 
       echo json_encode($newMessage);

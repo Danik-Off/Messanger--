@@ -21,6 +21,7 @@ class MessageAPI
 
   public function getAllMessages($peer_id, $user_id)
   {
+
     $sql =
       "SELECT `msgs`.`id`,`user_dialog`.`peer_id`,`msgs`.`text`,`msgs`.`from_id`,`msgs`.`attachment`,`msgs`.`createdAt`,msgs.updatedAt,msgs.isRead
       FROM `msgs`
@@ -37,7 +38,7 @@ class MessageAPI
 
     if ($result) {
       foreach ($result as $row) {
-        
+
        
         $dialog = new Msg(
           $row["id"], // id
@@ -68,6 +69,9 @@ class MessageAPI
 
   public function createMessage($peer_id, $user_id, $text,$attachment=[])
   {
+    if (!is_array($attachment)) {
+      $attachment = [];
+    }
     $jsonAttachment = json_encode( $attachment);
     $ip = $_SERVER["REMOTE_ADDR"];
     $sql =

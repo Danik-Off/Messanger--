@@ -28,6 +28,7 @@ body {
   margin: 0 auto;
   width: 100%;
   max-width: 1280px;
+  height: 10rem;
   border-radius: 50%;
   
 }
@@ -38,7 +39,9 @@ body {
   flex: 1;
   position: relative;
 }
-
+.page-container{
+  height: 100vh;
+}
 /* Медиазапрос для мобильных устройств */
 @media (max-width: 768px) {
   body {

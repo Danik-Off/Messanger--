@@ -44,18 +44,21 @@ switch ($requestMethod) {
 
   case "POST":
     $data = json_decode(file_get_contents("php://input"), true);
-    if (isset($data["title"])) {
-      $newDialog = $api->createDialog($data["title"]);
+
+    if (isset($data["title"]) && isset($data["users"]) && is_array($data["users"])) {
+      $title = $data["title"];
+      $users = $data["users"];
+      $description = $data["description"] ?? '';
+
+      $newDialog = $api->createDialog($userID, $title, $users, $description);
+      echo json_encode(["error" => "Создано успешно"], JSON_UNESCAPED_UNICODE);
       header("Content-Type: application/json");
-      echo json_encode($newDialog);
+      echo json_encode($newDialog, JSON_UNESCAPED_UNICODE);
+
     } else {
       http_response_code(400);
-      echo json_encode(["error" => "Отсутствует заголовок диалога"]);
+      echo json_encode(["error" => "Отсутствуют необходимые данные для создания диалога"], JSON_UNESCAPED_UNICODE);
     }
-    break;
-  case "PATCH":
-    break;
-  case "DELETE":
     break;
 
   default:

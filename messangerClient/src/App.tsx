@@ -12,7 +12,7 @@ function App() {
   if (token) {
     router.navigate("/login");
   } else {
-    router.navigate("/msgs");
+    router.navigate("/msg");
   }
 
   return (

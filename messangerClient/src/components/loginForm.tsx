@@ -2,9 +2,9 @@ import "./loginForm.scss";
 import logo from "../assets/logo.png";
 import { Form } from "react-router-dom";
 
-const handlerLogin = (e: any) => {
-  const login = e.target[0].value;
-  const password = e.target[0].value;
+const handlerLogin = () => {
+  // const login = e.target[0].value;
+  // const password = e.target[0].value;
 
  localStorage.setItem("token","");
 };

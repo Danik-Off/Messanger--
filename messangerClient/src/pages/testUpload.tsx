@@ -1,12 +1,12 @@
-import React, { ChangeEvent, Component } from 'react';
+import  { ChangeEvent, Component } from 'react';
 
 interface FileUploadWithProgressBarState {
   selectedFile: File | null;
   progress: number;
 }
 
-class FileUploadWithProgressBar extends Component<{}, FileUploadWithProgressBarState> {
-  constructor(props: {}) {
+class FileUploadWithProgressBar extends Component<object, FileUploadWithProgressBarState> {
+  constructor(props:object) {
     super(props);
     this.state = {
       selectedFile: null,
